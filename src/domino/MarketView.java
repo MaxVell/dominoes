@@ -51,19 +51,19 @@ public class MarketView {
 	public StoneView putStoneView(StoneView stoneView){
 		StoneView stone = stoneView;
 		stone.removeMouseListener(stone.getMouseListeners()[0]);
-		this.stones.remove(stoneView);
+		stones.remove(stoneView);
 		return stone;
 	}
 	
 	public StoneView putStoneView(Stone stone){
 		StoneView stoneView = getStone(stone);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
-		this.stones.remove(stoneView);
+		stones.remove(stoneView);
 		return stoneView;
 	}
 	
 	public StoneView putStone(int index){
-		StoneView stoneView = this.stones.remove(index);
+		StoneView stoneView = stones.remove(index);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
 		return stoneView; 
 	}
@@ -71,17 +71,17 @@ public class MarketView {
 	public StoneView putRandomStoneView(){
 		Random rand = new Random();
 		int numberStone = rand.nextInt(getStones().size());
-		StoneView stoneView = this.getStones().remove(numberStone);
+		StoneView stoneView = getStones().remove(numberStone);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
 		return stoneView;
 	}
 	
 	private Bazar getMarket(){
-		return this.market;
+		return market;
 	}
 	
 	public ArrayList<StoneView> getStones(){
-		return this.stones;
+		return stones;
 	}
 	
 	public void addStone(StoneView stoneView){

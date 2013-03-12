@@ -13,11 +13,11 @@ public class GameLineView {
 	}
 	
 	public ArrayList<StoneView> getStones(){
-		return this.stones;
+		return stones;
 	}
 	
 	public GameLineGoat getGameLine(){
-		return this.gameLine;
+		return gameLine;
 	}
 	
 	public void setGameLine(GameLineGoat gameLine){
@@ -25,7 +25,7 @@ public class GameLineView {
 	}
 	
 	public StoneView getStoneView(int index){
-		return this.stones.get(index);
+		return stones.get(index);
 	}
 	
 	public StoneView putStone(){

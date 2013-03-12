@@ -55,26 +55,26 @@ public class StoneCoordinates {
 	}
 	
 	public int getX(){
-		return this.posx;
+		return posx;
 	}
 	
 	public int getY(){
-		return this.posy;
+		return posy;
 	}
 	
 	public int getWidth(){
-		return this.width;
+		return width;
 	}
 	
 	public int getHeight(){
-		return this.height;
+		return height;
 	}
 	
 	public boolean getIsVertical(){
-		return this.isVertical;
+		return isVertical;
 	}
 	
 	public boolean getDirection(){
-		return this.direction;
+		return direction;
 	}
 }

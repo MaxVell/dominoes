@@ -29,17 +29,17 @@ public class DrawComponents {
 	
 	public DrawComponents(JPanel jpanel){
 		this.jpanel = jpanel;
-		this.properties = new Properties();
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
-			this.backgroundImage = ImageIO.read(new File("fon.jpeg"));
+			properties.load(new FileInputStream("dominoes.properties"));
+			backgroundImage = ImageIO.read(new File("fon.jpeg"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 	
 	private int getIntProperty(String param){
@@ -58,19 +58,19 @@ public class DrawComponents {
 	}
 	
 	private int getRowUp(){
-		return this.rowUp;
+		return rowUp;
 	}
 	
 	private int getRowDown(){
-		return this.rowDown;
+		return rowDown;
 	}
 	
 	private void addRowUp(){
-		this.rowUp++;
+		rowUp++;
 	}
 	
 	private void addRowDown(){
-		this.rowDown++;
+		rowDown++;
 	}
 	
 	private void setRowUp(int rowUp){
@@ -233,7 +233,7 @@ public class DrawComponents {
 	}
 	
 	public int getStoneWidth(){
-		return this.stoneWidth;
+		return stoneWidth;
 	}
 	
 	public void setStoneWidth(int stoneWidth){
@@ -252,14 +252,14 @@ public class DrawComponents {
 	}
 	
 	private JPanel getPanel(){
-		return this.jpanel;
+		return jpanel;
 	}
 	
 	private void setStoneWidth(){
 		int horWidth = (getPanel().getWidth() - getGamerImageWidth() - 6 * getIntProperty("insetsGamer") - 2 * getIntProperty("insetsStone")) / 19;
 		int verWidth = (getPanel().getHeight() - getGamerImageWidth() - 6 * getIntProperty("insetsGamer") - 2 * getIntProperty("insetsStone")) / 19;
-		this.stoneWidth = (horWidth < verWidth)?horWidth:verWidth;
-		setStoneWidth(this.stoneWidth);
+		stoneWidth = (horWidth < verWidth)?horWidth:verWidth;
+		setStoneWidth(stoneWidth);
 	}
 	
 	private int getGamerPanelHeight(){

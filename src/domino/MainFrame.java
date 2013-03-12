@@ -36,17 +36,17 @@ public class MainFrame extends JPanel{
 	private WaitPanel wPanel;
 	
 	public MainFrame(){
-		this.jfrm = new JFrame("Dominoes");
-		this.mainFrame = this;
-		this.startGame = false;
-		this.properties = new Properties();
+		jfrm = new JFrame("Dominoes");
+		mainFrame = this;
+		startGame = false;
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		}
 		jfrm.setSize(getIntProperty("FrameStartSizeX"), getIntProperty("FrameStartSizeY"));
 		jfrm.setMinimumSize(new Dimension(getIntProperty("FrameMinimumSizeX"), getIntProperty("FrameMinimumSizeY")));
-		this.menuBar = loadMenu();
+		menuBar = loadMenu();
 		
 /*		createGame(2);
 		this.drawGame = new DrawGame(getGame(), this.mainFrame, 24);
@@ -84,11 +84,11 @@ public class MainFrame extends JPanel{
 	}
 	
 	private InetAddress getIPAddress(){
-		return this.ipAddress;
+		return ipAddress;
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 	
 	private int getIntProperty(String param){
@@ -140,11 +140,11 @@ public class MainFrame extends JPanel{
 	}
 	
 	private String getClientName(){
-		return this.clientName;
+		return clientName;
 	}
 	
 	private boolean getCreateClient(){
-		return this.createClient;
+		return createClient;
 	}
 	
 	public void setCreateClient(boolean createClient){
@@ -160,7 +160,7 @@ public class MainFrame extends JPanel{
 	}
 	
 	public Server getServer(){
-		return this.server;
+		return server;
 	}
 	
 	private void setClient(Client client){
@@ -168,15 +168,15 @@ public class MainFrame extends JPanel{
 	}
 	
 	public Client getClient(){
-		return this.client;
+		return client;
 	}
 	
 	public boolean startGame(){
-		return this.startGame;
+		return startGame;
 	}
 	
 	public JFrame getFrame(){
-		return this.jfrm;
+		return jfrm;
 	}
 	
 	public void setStartGame(boolean startGame){
@@ -193,36 +193,36 @@ public class MainFrame extends JPanel{
 	}
 	
 	public DrawGame getDrawGame(){
-		return this.drawGame;
+		return drawGame;
 	}
 	
 	public DrawClient getDrawClient(){
-		return this.drawClient;
+		return drawClient;
 	}
 	
 	public void drawClientGame(Game game, boolean canChange, String[] names){
 		hideStartPanel();
-		this.drawClient = new DrawClient(mainFrame, getClientName(), game, canChange, names);
-		this.jfrm.add(drawClient);
+		drawClient = new DrawClient(mainFrame, getClientName(), game, canChange, names);
+		jfrm.add(drawClient);
 		drawClient.revalidate();
 	}
 	
 	public void drawGame(){
-		this.drawGame = new DrawGame(getGame(), this.mainFrame, 24);
+		drawGame = new DrawGame(getGame(), this.mainFrame, 24);
 		hideStartPanel();
 		this.jfrm.add(drawGame);
 		drawGame.revalidate();
 	}
 	
 	public Game getGame(){
-		return this.game;
+		return game;
 	}
 	
 	public int getMenuHeight(){
-		return this.menuBar.getHeight();
+		return menuBar.getHeight();
 	}
 	
 	public int getMenuWidth(){
-		return this.menuBar.getWidth();
+		return menuBar.getWidth();
 	}
 }

@@ -15,7 +15,7 @@ public class Gamer {
 	}
 	
 	public Gamer(int countStones){
-		this.gamerStones = new HashSet<Stone>();
+		gamerStones = new HashSet<Stone>();
 		for(int i = 0; i < countStones; i++){
 			this.gamerStones.add(new Stone(i, i));
 		}
@@ -26,27 +26,27 @@ public class Gamer {
 	}
 	
 	public void removeStones(){
-		this.gamerStones.clear();
+		gamerStones.clear();
 	}
 	
 	public void addStone(Stone elem){
-		this.gamerStones.add(elem);
+		gamerStones.add(elem);
 	}
 	
 	public void addStone(){
-		this.gamerStones.add(new Stone(getCountStones() - 1, getCountStones() - 1));
+		gamerStones.add(new Stone(getCountStones() - 1, getCountStones() - 1));
 	}
 	
 	public void removeStone(){
-		this.gamerStones.remove(this.gamerStones.add(new Stone(getCountStones() - 1, getCountStones() - 1)));
+		gamerStones.remove(gamerStones.add(new Stone(getCountStones() - 1, getCountStones() - 1)));
 	}
 	
 	public void addStones(ArrayList<Stone> stones){
-		this.gamerStones.addAll(stones);
+		gamerStones.addAll(stones);
 	}
 	
 	public boolean removeStone(Stone stone){
-		return this.gamerStones.remove(stone);
+		return gamerStones.remove(stone);
 	}
 	
 /*	public Stone removeStone(int index){
@@ -55,17 +55,17 @@ public class Gamer {
 	}*/
 	
 	public Stone getStone(int index){
-		Object[] stones = this.gamerStones.toArray();
+		Object[] stones = gamerStones.toArray();
 		return (Stone)stones[index];
 	}
 	
 	public int getCountStones(){
-		return this.gamerStones.size();
+		return gamerStones.size();
 	}
 	
 	public boolean haveStone(Stone elem){
 	//	return this.gamerStones.contains(elem);
-		Object[] stones = this.gamerStones.toArray();
+		Object[] stones = gamerStones.toArray();
 		int countStone = getCountStones();
 		Stone stone;
 		for(int i = 0; i < countStone; i++){
@@ -77,10 +77,8 @@ public class Gamer {
 
 	}
 	
-	
-	
 	public boolean haveNumber(int number){
-		Object[] stones = this.gamerStones.toArray();
+		Object[] stones = gamerStones.toArray();
 		int countStone = getCountStones();
 		Stone stone;
 		for(int i = 0; i < countStone; i++){

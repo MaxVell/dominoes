@@ -29,9 +29,9 @@ public class Server implements Runnable, Constants{
    public Server(MainFrame jframe, Game game){
 	   this.jframe = jframe;
 	   this.game = game;
-	   this.properties = new Properties();
+	   properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
@@ -77,7 +77,7 @@ public void run() {
 }
 
 private Properties getProperties(){
-	return this.properties;
+	return properties;
 }
 
 private int getIntProperty(String param){
@@ -98,15 +98,15 @@ public synchronized void notifyServer(){
 }
 
 private int getNumberServer(){
-	return this.numberServer;
+	return numberServer;
 }
 
 private void setDataInputStream(){
 	int countSocket = getSocket().length;
-	this.in = new DataInputStream[countSocket];
+	in = new DataInputStream[countSocket];
 	for(int i = 0; i < countSocket; i++){
 		try {
-			this.in[i] = new DataInputStream(getSocket(i).getInputStream());
+			in[i] = new DataInputStream(getSocket(i).getInputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,10 +116,10 @@ private void setDataInputStream(){
 
 private void setDataOutputStream(){
 	int countSocket = getSocket().length;
-	this.out = new DataOutputStream[countSocket];
+	out = new DataOutputStream[countSocket];
 	for(int i = 0; i < countSocket; i++){
 		try {
-			this.out[i] = new DataOutputStream(getSocket(i).getOutputStream());
+			out[i] = new DataOutputStream(getSocket(i).getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -153,11 +153,11 @@ private boolean createServerSocket(){
 }
 
 private Socket[] getSocket(){
-	return this.socket;
+	return socket;
 }
 
 private Socket getSocket(int number){
-	return this.socket[number];
+	return socket[number];
 }
 
 private void setSocket(Socket socket){
@@ -181,12 +181,12 @@ private void setServerSocket(ServerSocket ss){
 }
 
 private ServerSocket getServerSocket(){
-	return this.ss;
+	return ss;
 }
 
 public void closeServerSocket(){
 		try {
-			this.ss.close();
+			ss.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -194,11 +194,11 @@ public void closeServerSocket(){
 }
 
 private DataInputStream getDataInputStream(int number){
-	return this.in[number];
+	return in[number];
 }
 
 private DataOutputStream getDataOutputStream(int number){
-	return this.out[number];
+	return out[number];
 }
 
 private void setCanChangeServer(boolean canChange){
@@ -206,7 +206,7 @@ private void setCanChangeServer(boolean canChange){
 }
 
 private MainFrame getMainFrame(){
-	return this.jframe;
+	return jframe;
 }
 
 public void dialogClient() throws IOException{
@@ -288,7 +288,7 @@ private void setMessage(Game game){
 }
 
 private int getSizeMarket(){
-	return this.jframe.getDrawGame().getSizeMarket();
+	return jframe.getDrawGame().getSizeMarket();
 }
 
 private void sendStone(Stone stone) throws IOException{
@@ -370,7 +370,7 @@ public void sendGame(Game game, int numberGamer) throws IOException{
 }
 
 public boolean isStartGame(){
-	return this.startGame;
+	return startGame;
 }
 
 public void startGame(boolean startGame){
@@ -378,7 +378,7 @@ public void startGame(boolean startGame){
 }
 
 private Game getGame(){
-	return this.game;
+	return game;
 	
 }
 }

@@ -21,16 +21,16 @@ public class WaitPanel extends JPanel{
 	private JLabel label;
 	
 	public WaitPanel(){
-		this.stoneView = new StoneView(new Stone(1,1));
-		this.add(stoneView);
+		stoneView = new StoneView(new Stone(1,1));
+		add(stoneView);
 		stoneView.setIsTurn(isTurn);
 		stoneView.setIsOpen(true);
 		stoneView.setWidth(getStoneWidth());
-		this.setOpaque(false);
+		setOpaque(false);
 		label = new JLabel("Wait answer");
 		label.setForeground(Color.BLACK);
-		this.add(label);
-		this.setSize(4 * getStoneWidth(),4 * getStoneWidth());
+		add(label);
+		setSize(4 * getStoneWidth(),4 * getStoneWidth());
 	//	this.setVisible(true);
 		
 	}
@@ -45,7 +45,7 @@ public class WaitPanel extends JPanel{
 	
 	public void setIsturn(boolean isTurn){
 		this.isTurn = isTurn;
-		this.stoneView.setIsTurn(isTurn);
+		stoneView.setIsTurn(isTurn);
 	}
 	
 	private int getStoneWidth(){

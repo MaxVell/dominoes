@@ -31,10 +31,10 @@ public class GameLineGoat {
 	}
 	
 	public void clear(){
-		this.lineGame.clear();
-		this.startConutStone = - 1;
-		this.startNumber = - 1;
-		this.endNumber = -1;
+		lineGame.clear();
+		startConutStone = - 1;
+		startNumber = - 1;
+		endNumber = -1;
 	}
 	
 	public boolean addStartStone(Stone elem){
@@ -82,19 +82,19 @@ public class GameLineGoat {
 	}
 	
 	private void addNumbers(Stone elem){
-		this.numbers[elem.getStart()]++;
-		this.numbers[elem.getFinish()]++;
+		numbers[elem.getStart()]++;
+		numbers[elem.getFinish()]++;
 	}
 	
 	private void addStart(Stone element){
 		addNumbers(element);
-		this.lineGame.add(0, element);
+		lineGame.add(0, element);
 		
 	}
 	
 	private void addEnd(Stone element){
 		addNumbers(element);
-		this.lineGame.add(element);
+		lineGame.add(element);
 	}
 		
 	public boolean canStep(Gamer gamer){
@@ -125,9 +125,9 @@ public class GameLineGoat {
 		int[] numbers = new int[7];
 		for(int i = 0; i < 7; i++)
 			numbers[i] = 0;
-		int countStones = this.lineGame.size();
+		int countStones = lineGame.size();
 		for(int i = 0; i < countStones; i++){
-			addNumbers(this.lineGame.get(i));
+			addNumbers(lineGame.get(i));
 		}
 		for(int i = 0; i < 7; i++)
 			if((numbers[i] == 8) && (i == getStartNumber()))
@@ -136,15 +136,15 @@ public class GameLineGoat {
 	}
 	
 	public void removeAll(){
-		this.lineGame.clear();
+		lineGame.clear();
 	}
 	
 	public int getStartCount(){
-		return this.startConutStone;
+		return startConutStone;
 	}
 	
 	private void addStartCount(){
-		this.startConutStone++;
+		startConutStone++;
 	}
 	
 	public void setStartCount(int startCount){
@@ -152,11 +152,11 @@ public class GameLineGoat {
 	}
 	
 	public Stone priorityStone(int index){
-		return this.stoneWeight.get(index);
+		return stoneWeight.get(index);
 	}
 	
 	public int getStartNumber(){
-		return this.startNumber;
+		return startNumber;
 	}
 	
 	public void setStartNumber(int startNumber){
@@ -164,7 +164,7 @@ public class GameLineGoat {
 	}
 	
 	public int getEndNumber(){
-		return this.endNumber;
+		return endNumber;
 	}
 	
 	public void setEndNumber(int endNumber){
@@ -172,11 +172,11 @@ public class GameLineGoat {
 	}
 	
 	public int length(){
-		return this.lineGame.size();
+		return lineGame.size();
 	}
 	
 	public Stone getStone(int index){
-		return this.lineGame.get(index);
+		return lineGame.get(index);
 	}
 	
 	public boolean canAttach(Stone stone){

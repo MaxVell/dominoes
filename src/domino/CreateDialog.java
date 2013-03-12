@@ -36,9 +36,9 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 
 	public CreateDialog(MainFrame mainFrame, Server server){
 		super(mainFrame.getFrame(), "Create game.", false);
-		this.properties = new Properties();
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
@@ -46,7 +46,7 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 		this.server = server;
 		GridBagLayout gbLayout = new GridBagLayout();
 		setLayout(gbLayout);
-		this.setMinimumSize(new Dimension(getIntProperty("CreateFrameMinimumSizeX"), getIntProperty("CreateFrameMinimumSizeY")));
+		setMinimumSize(new Dimension(getIntProperty("CreateFrameMinimumSizeX"), getIntProperty("CreateFrameMinimumSizeY")));
 		setSize(getIntProperty("CreateFrameStartSizeX"), getIntProperty("CreateFrameStartSizeY"));
 		gamers = new List();
 		text = new JLabel("Connected Computers:");
@@ -61,19 +61,19 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 		gbLayout.setConstraints(gamers, new GridBagConstraints(0, 2, 3, 1, 1, 3, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 		gbLayout.setConstraints(buttonStart, new GridBagConstraints(2, 3, 1, 1, 1, 1, GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 		gbLayout.setConstraints(errorMessage, new GridBagConstraints(0, 3, 1, 1, 1, 1, GridBagConstraints.EAST, GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
-		this.add(labelServerName);
-		this.add(textServerName);
-		this.add(text);
-		this.add(gamers);
-		this.add(buttonStart);
-		this.add(errorMessage);
+		add(labelServerName);
+		add(textServerName);
+		add(text);
+		add(gamers);
+		add(buttonStart);
+		add(errorMessage);
 		addWindowListener(this);
-		this.setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - this.getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - this.getHeight() / 2);
+		setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - this.getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - this.getHeight() / 2);
 		setVisible(true);
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 
 	private int getIntProperty(String param){
@@ -81,11 +81,11 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 	}
 	
 	public void addConnection(String param){
-		this.gamers.add(param);
+		gamers.add(param);
 	}
 	
 	private Server getServer(){
-		return this.server;
+		return server;
 	}
 	
 	
@@ -133,7 +133,7 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 	}
 	
 	public void setStartGame(boolean startGame){
-		this.server.startGame(startGame);
+		server.startGame(startGame);
 	}
 	
 	private boolean isCorrectName(){

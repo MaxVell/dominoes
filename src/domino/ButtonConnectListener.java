@@ -12,10 +12,10 @@ private MainFrame mainFrame;
 	}
 	
 	private MainFrame getMainFrame(){
-		return this.mainFrame;
+		return mainFrame;
 	}
 	public void actionPerformed(ActionEvent e) {
-		new ConnectDialog(mainFrame);
+		new ConnectDialog(getMainFrame());
 		getMainFrame().createClient();
 	}
 }

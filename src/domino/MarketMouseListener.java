@@ -21,10 +21,10 @@ public class MarketMouseListener implements MouseListener, MouseMotionListener, 
 	}
 	
 	private Game getGame(){
-		if(this.dGame != null){
-			return this.dGame.getGame();
+		if(dGame != null){
+			return dGame.getGame();
 		} else 
-			return this.dClient.getGame();
+			return dClient.getGame();
 	}
 	
 	
@@ -64,9 +64,9 @@ public class MarketMouseListener implements MouseListener, MouseMotionListener, 
 		if(!getGame().canStep()){
 			stoneView.setIsOpen(true);
 			if(dGame != null)
-				this.dGame.putFromMarket(stoneView);
+				dGame.putFromMarket(stoneView);
 			else{
-				this.dClient.putFromMarket(stoneView);
+				dClient.putFromMarket(stoneView);
 			}
 		}
 		

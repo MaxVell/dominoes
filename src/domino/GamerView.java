@@ -27,7 +27,7 @@ public class GamerView {
 	}
 
 	public StoneView putLast(){
-		StoneView stone = this.stones.remove(size() - 1);
+		StoneView stone = stones.remove(size() - 1);
 		stone.removeMouseListener(stone.getMouseListeners()[0]);
 		stone.removeMouseMotionListener(stone.getMouseMotionListeners()[0]);
 		return stone;
@@ -38,7 +38,7 @@ public class GamerView {
 	}
 	
 	public int size(){
-		return this.stones.size();
+		return stones.size();
 	}
 	
 	public void addStone(StoneView stoneView){
@@ -55,11 +55,11 @@ public class GamerView {
 	}
 	
 	private Gamer getGamer(){
-		return this.gamer;
+		return gamer;
 	}
 	
 	public ArrayList<StoneView> getStones(){
-		return this.stones;
+		return stones;
 	}
 	
 	public StoneView getStoneView(int index){

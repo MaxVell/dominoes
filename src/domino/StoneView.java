@@ -24,26 +24,26 @@ public class StoneView extends JPanel{
 	private static final long serialVersionUID = -1435445423589581003L;
 	
 	public StoneView(){
-		this.setSize(width, width);
-		this.isVertical = true;
-		this.theta = 0;
-		this.isOpen = false;
-		this.color = Color.BLACK;
+		setSize(width, width);
+		isVertical = true;
+		theta = 0;
+		isOpen = false;
+		color = Color.BLACK;
 //		deltaTheta = 0;
-		this.setOpaque(false);
-		this.setVisible(true);
+		setOpaque(false);
+		setVisible(true);
 	}
 
 	public StoneView(Stone stone){
 		this.stone = stone;
-		this.setSize(width, width);
-		this.isVertical = true;
-		this.theta = 0;
-		this.isOpen = false;
-		this.color = Color.BLACK;
+		setSize(width, width);
+		isVertical = true;
+		theta = 0;
+		isOpen = false;
+		color = Color.BLACK;
 	//	deltaTheta = 0;
-		this.setOpaque(false);
-		this.setVisible(true);
+		setOpaque(false);
+		setVisible(true);
 	}
 	
 	protected void paintComponent(Graphics g){
@@ -65,7 +65,7 @@ public class StoneView extends JPanel{
 	}
 	
 	public boolean getIsTurn(){
-		return this.turn;
+		return turn;
 	}
 	
 	public void setIsTurn(boolean turn){
@@ -77,11 +77,11 @@ public class StoneView extends JPanel{
 	}
 	
 	public Color getColor(){
-		return this.color;
+		return color;
 	}
 	
 	public boolean isPress(){
-		return this.isPress;
+		return isPress;
 	}
 	
 	public void setIsPress(boolean isPress){
@@ -89,16 +89,16 @@ public class StoneView extends JPanel{
 	}
 	
 	public Stone getStone(){
-		return this.stone;
+		return stone;
 	}
 	
 	public void setIsVertical(boolean isVertical){
 		if(isVertical){
 			setTheta(0);
-			this.setSize(getStoneWidth() + 1, 2 * getStoneWidth() + 1);
+			setSize(getStoneWidth() + 1, 2 * getStoneWidth() + 1);
 		} else{
 			setTheta(Math.PI / 2);
-			this.setSize(2 * getStoneWidth() + 1, getStoneWidth() + 1);
+			setSize(2 * getStoneWidth() + 1, getStoneWidth() + 1);
 		}
 		this.isVertical = isVertical;
 	}
@@ -108,7 +108,7 @@ public class StoneView extends JPanel{
 	}
 	
 	public boolean getIsVertical(){
-		return this.isVertical;
+		return isVertical;
 	}
 	
 	public void setStone(Stone stone){
@@ -125,25 +125,25 @@ public class StoneView extends JPanel{
 	}
 	
 	public int getStoneWidth(){
-		return this.width;
+		return width;
 	}
 	
 	public double getTheta(){
-		return this.theta;
+		return theta;
 	}
 	
 	public int getStartNumber(boolean isLeft){
 		if(isLeft){
 			if(((getTheta() == 0) || (getTheta() == 3 * Math.PI / 2))){
-				return this.stone.getFinish();
+				return stone.getFinish();
 			} else{
-				return this.stone.getStart();
+				return stone.getStart();
 			}
 		} else{
 			if(((getTheta() == 0) || (getTheta() == 3 * Math.PI / 2))){
-				return this.stone.getStart();				
+				return stone.getStart();				
 			} else{
-				return this.stone.getFinish();
+				return stone.getFinish();
 			}
 		}
 	}
@@ -151,15 +151,15 @@ public class StoneView extends JPanel{
 	public int getEndNumber(boolean isRight){
 		if(!isRight){
 			if((getTheta() == 0) || (getTheta() == 3 * Math.PI / 2)){
-				return this.stone.getStart();
+				return stone.getStart();
 			} else{
-				return this.stone.getFinish();
+				return stone.getFinish();
 			}
 		}else{
 			if((getTheta() == 0) || (getTheta() == 3 * Math.PI / 2)){
-				return this.stone.getFinish();			
+				return stone.getFinish();			
 			} else{
-				return this.stone.getStart();
+				return stone.getStart();
 			}
 		}
 	}
@@ -211,7 +211,7 @@ public class StoneView extends JPanel{
 	}
 	
 	public boolean isOpen(){
-		return this.isOpen;
+		return isOpen;
 	}
 	
 	private void drawStone(){
@@ -251,7 +251,7 @@ public class StoneView extends JPanel{
 	}
 	
 	private Graphics2D getGraphics2D(){
-		return this.g;
+		return g;
 	}
 	
 	private void setGraphics2D(Graphics2D g){

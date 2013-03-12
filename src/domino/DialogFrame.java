@@ -37,7 +37,7 @@ public class DialogFrame extends Dialog implements ActionListener, WindowListene
 		setLayout(new GridBagLayout());
 		setMinimumSize(new Dimension(getIntProperty("DialogFrameMinimumSizeX"), getIntProperty("DialogFrameMinimumSizeY")));
 		setSize(getIntProperty("DialogFrameStartSizeX"),getIntProperty("DialogFrameStartSizeY"));
-		this.setLocation(mainFrame.getLocation().x + mainFrame.getWidth() / 2 - this.getWidth() / 2, mainFrame.getLocation().y + mainFrame.getHeight() / 2 - this.getHeight() / 2);
+		setLocation(mainFrame.getLocation().x + mainFrame.getWidth() / 2 - getWidth() / 2, mainFrame.getLocation().y + mainFrame.getHeight() / 2 - getHeight() / 2);
 		add(new Label(text));
 		add(buttonOk = new JButton("Ok"));
 		buttonOk.addActionListener(this);
@@ -47,7 +47,7 @@ public class DialogFrame extends Dialog implements ActionListener, WindowListene
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 
 	private int getIntProperty(String param){

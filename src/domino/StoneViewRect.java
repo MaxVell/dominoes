@@ -12,30 +12,30 @@ public class StoneViewRect extends StoneView{
 	private int width = 30;
 	
 	public StoneViewRect(){
-		this.setSize(30, 30);
-		this.setVisible(true);
+		setSize(30, 30);
+		setVisible(true);
 	}
 	
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
-		this.getGraphics().fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);		
+		getGraphics().fillRoundRect(0, 0, getWidth(), getHeight(), 10, 10);		
 	}
 	
 	public void setWidth(int width){
 		this.width = width;
 		if(getIsVertical()){
-			this.setSize(width, 2 *width);
+			setSize(width, 2 *width);
 		} else{
-			this.setSize(2 * width, width);
+			setSize(2 * width, width);
 		}
 	}
 	
 	public int getWidth(){
-		return this.width;
+		return width;
 	}
 	
 	public void setVertical(){
-		this.isVertical = false;
+		isVertical = false;
 	}
 	
 	public void setIsVertical(boolean isVertical){
@@ -43,6 +43,6 @@ public class StoneViewRect extends StoneView{
 	}
 	
 	public boolean getIsVertical(){
-		return this.isVertical;
+		return isVertical;
 	}
 }

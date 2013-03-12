@@ -28,7 +28,7 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 	 * 
 	 */
 	private static final long serialVersionUID = 1866491754710339991L;
-	private JFormattedTextField IPTextField;
+	private JFormattedTextField ipTextField;
 	private JLabel text;
 	private JLabel errorMessage;
 	private JButton ok;
@@ -40,9 +40,9 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 
 	public ConnectDialog(MainFrame mainFrame){
 		super(mainFrame.getFrame(), "", true);
-		this.properties = new Properties();
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
@@ -50,8 +50,8 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 		 try {
 			MaskFormatter mf = new MaskFormatter("###.###.###.###");
 			mf.setPlaceholderCharacter('0');
-			IPTextField = new JFormattedTextField(mf);
-			IPTextField.setText("127.000.000.001");
+			ipTextField = new JFormattedTextField(mf);
+			ipTextField.setText("127.000.000.001");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,27 +66,27 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 			gbLayout.setConstraints(labelServerName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
 			gbLayout.setConstraints(textGamerName, new GridBagConstraints(1, 0, 2, 1, 8, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
 			gbLayout.setConstraints(text, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(IPTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+			gbLayout.setConstraints(ipTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 			gbLayout.setConstraints(errorMessage, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
 			gbLayout.setConstraints(ok, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
 			ok.addActionListener(this);
-			this.add(labelServerName);
-			this.add(textGamerName);
-			this.add(text);
-			this.add(IPTextField);
-			this.add(errorMessage);
-			this.add(ok);
+			add(labelServerName);
+			add(textGamerName);
+			add(text);
+			add(ipTextField);
+			add(errorMessage);
+			add(ok);
 			
 		 addWindowListener(this);
-		 this.setMinimumSize(new Dimension(getIntProperty("ConnectFrameMinimumSizeX"), getIntProperty("ConnectFrameMinimumSizeY")));
+		 setMinimumSize(new Dimension(getIntProperty("ConnectFrameMinimumSizeX"), getIntProperty("ConnectFrameMinimumSizeY")));
 		 setSize(getIntProperty("ConnectFrameStartSizeX"), getIntProperty("ConnectFrameStartSizeY"));
-		 this.setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - this.getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - this.getHeight() / 2);
+		 setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - getHeight() / 2);
 		 
 		 setVisible(true);
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 
 	private int getIntProperty(String param){
@@ -98,7 +98,7 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 	}
 	
 	private InetAddress getIPAddress(){
-		return this.ipAddres;
+		return ipAddres;
 	}
 	
 	private boolean isCorrectName(){
@@ -123,7 +123,7 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 	}
 	
 	private MainFrame getMainFrame(){
-		return this.mainFrame;
+		return mainFrame;
 	}
 	
 	@Override
@@ -142,7 +142,7 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 	public void windowClosing(WindowEvent arg0) {
 		// TODO Auto-generated method stub
 		getMainFrame().setCreateClient(false);
-		this.dispose();
+		dispose();
 	}
 
 	@Override
@@ -172,25 +172,25 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if(isCorrectName() && !isCorrectIP(IPTextField.getText())){
+		if(isCorrectName() && !isCorrectIP(ipTextField.getText())){
 			errorMessage.setText(errorIP);
 		}
-		if(!isCorrectName() && isCorrectIP(IPTextField.getText())){
+		if(!isCorrectName() && isCorrectIP(ipTextField.getText())){
 			errorMessage.setText(errorEnterName);
 		}
-		if(!isCorrectName() && !isCorrectIP(IPTextField.getText())){
+		if(!isCorrectName() && !isCorrectIP(ipTextField.getText())){
 			errorMessage.setText(errorIP + " and " + errorEnterName);
 		}
-		if(isCorrectIP(IPTextField.getText()) && isCorrectName()){
+		if(isCorrectIP(ipTextField.getText()) && isCorrectName()){
 			try {
-				setIPAddress(InetAddress.getByName(IPTextField.getText()));
+				setIPAddress(InetAddress.getByName(ipTextField.getText()));
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			getMainFrame().setIPAddress(getIPAddress());
 			getMainFrame().setCreateClient(true);
-			getMainFrame().setClientName(this.textGamerName.getText());
+			getMainFrame().setClientName(textGamerName.getText());
 			dispose();
 		}
 	}

@@ -29,14 +29,14 @@ public class DrawGame extends JPanel implements Constants{
 	private String message;
 
 	public DrawGame(Game game, MainFrame mainFrame, int menuHeight){
-		this.setLayout(null);
-		this.dComponents = new DrawComponents(this);
+		setLayout(null);
+		dComponents = new DrawComponents(this);
 		this.game = game;
 		this.mainFrame = mainFrame;
-		this.message = "Start game";
-		this.properties = new Properties();
+		message = "Start game";
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
@@ -53,27 +53,27 @@ public class DrawGame extends JPanel implements Constants{
 			for(int j = 0; j < countStones; j++){
 				getGamerView(i).addStone(getMarketView().putRandomStoneView());
 		}
-		this.game.setActiveGamer(this.game.whoIsFirst());
+		game.setActiveGamer(this.game.whoIsFirst());
 	}
 	
 	private void createStoneRect(){
 		stoneRect = new StoneView[2];
 		stoneRect[0] = new StoneView(new Stone(0,0));
 		stoneRect[1] = new StoneView(new Stone(0,0));
-		this.add(stoneRect[0]);
-		this.add(stoneRect[1]);
+		add(stoneRect[0]);
+		add(stoneRect[1]);
 		stoneRect[0].setVisible(false);
 		stoneRect[1].setVisible(false);
 	}
 	
 	private void createComponents(Game game, ArrayList<StoneView> stones){
-		this.gameLineView = new GameLineView(game.getGameLine());
+		gameLineView = new GameLineView(game.getGameLine());
 		int countGamers = game.getGamers().length;
-		this.gamerView = new GamerView[countGamers];
+		gamerView = new GamerView[countGamers];
 		for(int i = 0; i < countGamers; i++){
-			this.gamerView[i] = new GamerView(game.getGamer(i), this);
+			gamerView[i] = new GamerView(game.getGamer(i), this);
 		}
-		this.marketView = new MarketView(game.getBazar(), stones, this);
+		marketView = new MarketView(game.getBazar(), stones, this);
 	}
 	
 	public void resetStoneView(){
@@ -91,19 +91,19 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	private void createStonesView(){
-		this.stones = new ArrayList<StoneView>();
+		stones = new ArrayList<StoneView>();
 		for(int i = 0; i < 28; i++){
 			getStones().add(new StoneView());
-			this.add(getStones().get(getStones().size() - 1));
+			add(getStones().get(getStones().size() - 1));
 		}
 	}
 	
 	public StoneView[] getStoneRect(){
-		return this.stoneRect;
+		return stoneRect;
 	}
 
 	private ArrayList<StoneView> getStones(){
-		return this.stones;
+		return stones;
 	}
 
 	public void putFromMarket(StoneView stoneView){
@@ -134,19 +134,19 @@ public class DrawGame extends JPanel implements Constants{
 	
 	public void addStartGameLineStone(int numberGamer, StoneView stoneView, boolean isServer){
 		getGamerView(numberGamer).removeStoneView(stoneView);
-		this.getGameLineView().addStart(stoneView);
+		getGameLineView().addStart(stoneView);
 		getGame().stepStart(numberGamer, stoneView.getStone());
 		setCanChange(getGame().getActiveGamer() == 0);
-		this.getGameLineView().setGameLine(getGame().getGameLine());
+		getGameLineView().setGameLine(getGame().getGameLine());
 		check(isServer);
 	}
 	
 	public void addEndGameLineStone(int numberGamer, StoneView stoneView, boolean isServer){
 		getGamerView(numberGamer).removeStoneView(stoneView);
-		this.getGameLineView().addEnd(stoneView);
+		getGameLineView().addEnd(stoneView);
 		getGame().stepEnd(numberGamer, stoneView.getStone());
 		setCanChange(getGame().getActiveGamer() == 0);
-		this.getGameLineView().setGameLine(getGame().getGameLine());
+		getGameLineView().setGameLine(getGame().getGameLine());
 		check(isServer);
 	}
 
@@ -178,11 +178,11 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	public GamerView getGamerView(int index){
-		return this.gamerView[index];
+		return gamerView[index];
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 	
 	private int getIntProperty(String param){
@@ -194,13 +194,13 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	public boolean canChange(){
-		return this.canChange;
+		return canChange;
 	}
 	
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		setGraphics2D((Graphics2D)g);
-		this.dComponents.drawGame(getGraphics2D(), gamerView, getMarketView(), getGameLineView(), stoneRect,getGame().getGamersName(), getGame().getScore(),getMessage());
+		dComponents.drawGame(getGraphics2D(), gamerView, getMarketView(), getGameLineView(), stoneRect,getGame().getGamersName(), getGame().getScore(),getMessage());
 	}
 	
 	private void setGraphics2D(Graphics2D g){
@@ -212,7 +212,7 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	public int getSizeMarket(){
-		return this.marketView.getStones().size();
+		return marketView.getStones().size();
 	}
 	
 	public void setServerName(String serverName){
@@ -220,11 +220,11 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	private Graphics2D getGraphics2D(){
-		return this.g;
+		return g;
 	}
 	
 	public Game getGame(){
-		return this.game;
+		return game;
 	}
 	
 	public void sendGame(){
@@ -241,7 +241,7 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	public int getScoreGamer(int number){
-		return this.getGame().getScore(number);
+		return getGame().getScore(number);
 	}
 	
 	private void sendWinner(){
@@ -276,7 +276,7 @@ public class DrawGame extends JPanel implements Constants{
 		dispence();
 		sendGame();
 		repaint();*/
-		this.removeAll();
+		removeAll();
 		getGame().scoreCount();
 		if(getGame().isEndGame()){
 			sendWinner();
@@ -298,19 +298,19 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	private JFrame getFrame(){
-		return this.mainFrame.getFrame();
+		return mainFrame.getFrame();
 	}
 	
 	private String getMessage(){
-		return this.message;
+		return message;
 	}
 	
 	private GameLineView getGameLineView(){
-		return this.gameLineView;
+		return gameLineView;
 	}
 
 	private MarketView getMarketView(){
-		return this.marketView;
+		return marketView;
 	}
 /*	private GamerView getGamerView(int index){
 		return this.gamerView[index];

@@ -12,7 +12,7 @@ public class ButtonCreateListener implements ActionListener{
 	}
 	
 	private MainFrame getMainFrame(){
-		return this.mainFrame;
+		return mainFrame;
 	}
 	
 	public void actionPerformed(ActionEvent e) {

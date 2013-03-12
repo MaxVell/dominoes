@@ -32,18 +32,18 @@ public class StartPanel extends JPanel implements MouseListener, Constants{
 
 	public StartPanel(MainFrame mainFrame){
 		this.mainFrame = mainFrame;
-		this.properties = new Properties();
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
-			this.backgroundImage = ImageIO.read(new File("fon.jpeg"));
-			this.mainImage = ImageIO.read(new File("domino.png"));
+			properties.load(new FileInputStream("dominoes.properties"));
+			backgroundImage = ImageIO.read(new File("fon.jpeg"));
+			mainImage = ImageIO.read(new File("domino.png"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
 		
-		this.add(buttonCreate = new JButton("Create")); 
+		add(buttonCreate = new JButton("Create")); 
 		buttonCreate.addActionListener(new ButtonCreateListener(mainFrame));
-		this.add(buttonConnect = new JButton("Connect"));
+		add(buttonConnect = new JButton("Connect"));
 		buttonConnect.addActionListener(new ButtonConnectListener(mainFrame));
 		addMouseListener(this);
 	}
@@ -57,7 +57,7 @@ public class StartPanel extends JPanel implements MouseListener, Constants{
 	}
 	
 	private BufferedImage getMainImage(){
-		return this.mainImage;
+		return mainImage;
 	}
 	
 	private void drawMainImage(){
@@ -76,8 +76,8 @@ public class StartPanel extends JPanel implements MouseListener, Constants{
 	}
 	
 	private void drawButtons(){
-		this.buttonCreate.setLocation(getPanelWidth() / 2 - this.buttonCreate.getWidth() - 2, (getPanelHeight() + getMainImage().getHeight()) / 2 + this.buttonCreate.getHeight());
-		this.buttonConnect.setLocation(getPanelWidth() / 2 + 2, (getPanelHeight() + getMainImage().getHeight()) / 2 + this.buttonConnect.getHeight());
+		buttonCreate.setLocation(getPanelWidth() / 2 - buttonCreate.getWidth() - 2, (getPanelHeight() + getMainImage().getHeight()) / 2 + buttonCreate.getHeight());
+		buttonConnect.setLocation(getPanelWidth() / 2 + 2, (getPanelHeight() + getMainImage().getHeight()) / 2 + buttonConnect.getHeight());
 	}
 	
 	private int getPanelWidth(){
@@ -89,11 +89,11 @@ public class StartPanel extends JPanel implements MouseListener, Constants{
 	}
 	
 	private BufferedImage getBackgroundImage(){
-		return this.backgroundImage;
+		return backgroundImage;
 	}
 	
 	private JFrame getMainFrame(){
-		return this.mainFrame.getFrame();
+		return mainFrame.getFrame();
 	}
 	
 	private void setGraphics2D(Graphics2D g){
@@ -101,7 +101,7 @@ public class StartPanel extends JPanel implements MouseListener, Constants{
 	}
 	
 	private Graphics2D getGraphics2D(){
-		return this.g;
+		return g;
 	}
 
 	@Override

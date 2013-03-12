@@ -10,16 +10,16 @@ final public class Stone {
 	}
 	
 	public Stone(){
-		this.startNum = 0;
-		this.finishNum = 0;
+		startNum = 0;
+		finishNum = 0;
 	}
 	
  	int getStart(){
-		return this.startNum;
+		return startNum;
 	}
 	
 	int getFinish(){
-		return this.finishNum;
+		return finishNum;
 	}
 	
 /*	private void setStart(int startNum){

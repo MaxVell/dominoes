@@ -67,34 +67,30 @@ public class Game {
 		this.market = new Bazar();
 	}
 	
-/*	public void newGame(int countGamers, int activeGamer, Gamer gamer, int[] countStonesGamers, GameLineGoat gameLine ){
-		
-	}*/
-	
 	public void newGame(){
 //		this.score = new int[countGamers];
 //		this.gamersName = new String[countGamers];
 //		for(int i = 0; i < countGamers; i++)
 //			this.score[i] = 0;
-		this.gamers = new Gamer[countGamers];
-		this.properties = new Properties();
+		gamers = new Gamer[countGamers];
+		properties = new Properties();
 		try{
-			this.properties.load(new FileInputStream("dominoes.properties"));
+			properties.load(new FileInputStream("dominoes.properties"));
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
-		this.market = new Bazar();
+		market = new Bazar();
 		int count = getCountGamers();
 		for(int i = 0; i < count; i++)
-			this.gamers[i] = new Gamer();
-		this.gameLine = new GameLineGoat();
+			gamers[i] = new Gamer();
+		gameLine = new GameLineGoat();
 	}
 	
 	
 	public void dispence(){
 //		this.gameLine = new GameLineGoat();
-		this.gameLine.clear();
-		this.market = new Bazar();
+		gameLine.clear();
+		market = new Bazar();
 		int countGamers = getCountGamers();
 		for(int i = 0; i < countGamers; i++)
 //			this.gamers[i]. = new Gamer();
@@ -125,47 +121,47 @@ public class Game {
 	}
 	
 	public void setGamerName(int numberGamer, String name){
-		this.gamersName[numberGamer] = name;
+		gamersName[numberGamer] = name;
 	}
 	
 	public String getGamerName(int numberGamer){
-		return this.gamersName[numberGamer];
+		return gamersName[numberGamer];
 	}
 	
 	public String[] getGamersName(){
-		return this.gamersName;
+		return gamersName;
 	}
 	
 	public Gamer getGamer(int indexGamer){
-		return this.gamers[indexGamer];
+		return gamers[indexGamer];
 	}
 	
 	private int getCountGamers(){
-		return this.gamers.length;
+		return gamers.length;
 	}
 	
 	public Bazar getBazar(){
-		return this.market;
+		return market;
 	}
 
 	public Gamer[] getGamers(){
-		return this.gamers;
+		return gamers;
 	}
 
 	public GameLineGoat getGameLine(){
-		return this.gameLine;
+		return gameLine;
 	}
 	
 	public int[] getScore(){
-		return this.score;
+		return score;
 	}
 	
 	public int getScore(int index){
-		return this.score[index];
+		return score[index];
 	}
 	
 	private void setScore(int index, int scores){
-		this.score[index] = scores;
+		score[index] = scores;
 	}
 	
 	public boolean canStep(){
@@ -182,11 +178,11 @@ public class Game {
 	}*/
 	
 	public int getLastWinner(){
-		return this.lastWinner;
+		return lastWinner;
 	}
 	
 	public boolean isTeam(){
-		return this.Team;
+		return Team;
 	}
 	
 	public void setIsTeam(boolean team){
@@ -194,12 +190,12 @@ public class Game {
 	}
 	
 	private void setStoneWeight(){
-		this.stoneWeight = new ArrayList<Stone>();
+		stoneWeight = new ArrayList<Stone>();
 		for(int i = 0; i <= 6; i++) 
-			this.stoneWeight.add(new Stone((i + 1) % 7, (i + 1) % 7));
+			stoneWeight.add(new Stone((i + 1) % 7, (i + 1) % 7));
 		for(int i = 0; i < 6; i++)
 			for(int j = i + 1; j <= 6; j++)
-				this.stoneWeight.add(new Stone(i, j));
+				stoneWeight.add(new Stone(i, j));
 	}
 	
 	public int whoIsFirst(){
@@ -256,7 +252,7 @@ public class Game {
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 
 	private int getIntProperty(String param){
@@ -268,7 +264,7 @@ public class Game {
 	}
 	
 	public boolean isEndRound(){
-		return this.gameLine.isEnd(getGamers(), getBazar());
+		return gameLine.isEnd(getGamers(), getBazar());
 	}
 	
 	public void setActiveGamer(int indexOfGamer){
@@ -276,11 +272,11 @@ public class Game {
 	}
 	
 	public int getActiveGamer(){
-		return this.activeGamer;
+		return activeGamer;
 	}
 	
 	public void nextGamer(){
-		this.activeGamer = (this.activeGamer + 1) % this.getCountGamers();
+		activeGamer = (activeGamer + 1) % this.getCountGamers();
 //		System.out.println("next gamer: " + this.activeGamer);
 	}
 	

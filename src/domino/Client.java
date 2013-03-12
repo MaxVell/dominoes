@@ -78,7 +78,7 @@ public class Client implements Runnable, Constants {
 	}
 	
 	private Properties getProperties(){
-		return this.properties;
+		return properties;
 	}
 
 	private int getIntProperty(String param){
@@ -149,7 +149,7 @@ public class Client implements Runnable, Constants {
 	}
 	
 	private InetAddress getIPAddress(){
-		return this.ipAddress;
+		return ipAddress;
 	}
 	
 	private void setSocket(Socket socket){
@@ -158,7 +158,7 @@ public class Client implements Runnable, Constants {
 	
 	public void closeSocket(){
 		try {
-			this.socket.close();
+			socket.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,11 +166,11 @@ public class Client implements Runnable, Constants {
 	}
 	
 	private int getNumberGamer(){
-		return this.numberGamer;
+		return numberGamer;
 	}
 	
 	private DataOutputStream getDataOutputStream(){
-		return this.out;
+		return out;
 	}
 	
 	private void setDataOutputStream(DataOutputStream out){
@@ -182,11 +182,11 @@ public class Client implements Runnable, Constants {
 	}
 	
 	private String getClientName(){
-		return this.clientName;
+		return clientName;
 	}
 	
 	private DataInputStream getDataInputStream(){
-		return this.in;
+		return in;
 	}
 	
 	private void setDataInputStream(DataInputStream in){
@@ -195,11 +195,10 @@ public class Client implements Runnable, Constants {
 	
 	private void setCanChangeClient(boolean canChange){
 		mainFrame.getDrawClient().setCanChange(canChange);
-	 // tMainFrame().getDrawClient().setCanChange(canChange);
 	}
 	
 	private MainFrame getMainFrame() {
-		return this.mainFrame;
+		return mainFrame;
 	}
 
 	public Game readGame() throws IOException{
@@ -226,17 +225,6 @@ public class Client implements Runnable, Constants {
 		//scores gamers
 		int[] scores = readScores();
 		scores =  clientsScores(scores, 1);
-	//	new DialogFrame(mainFrame.getFrame(), "Active gamer: "+ getActiveGamer() + " number gamer: "+getNumberGamer() + " : " + (getNumberGamer() == getActiveGamer()));
-	//	setCanChangeClient(getNumberGamer() == getActiveGamer());
-//		new DialogFrame(mainFrame.getFrame(), "Active gamer: "+ getActiveGamer() + " number gamer: "+getNumberGamer()+" count gamers: " + gamers.length + " count stones: "+ gamers[0].getCountStones());
-		//mainFrame.getClient().setCanChangeClient(false);
-	//	mainFrame.getDrawClient().dispenceStoneView(gamers, gameLine, market);
-	//	mainFrame.getDrawClient().setParamerts(getCountGamers(), getActiveGamer(), getGamers(), getGamer(), getStartGameLine(), getGameLine(), getSizeBazar(), getScoresGamers());
-	/*	setCanChangeClient((getNumberGamer() == getActiveGamer()));
-		endRound();
-		
-		if(getNumberGamer() == getActiveGamer())waitClient();*/
-	//	setMessage(game);
 		return new Game(getNumberGamer(), gamers, gameLine, market, scores);
 		}
 	}
@@ -271,7 +259,7 @@ public class Client implements Runnable, Constants {
 		getDataOutputStream().writeBoolean(inStartGameLine);
 		setActiveGamer(0);
 		setCanChangeClient(false);
-		this.mainFrame.getDrawClient().setMessage(anotherPlayerTurn);
+		mainFrame.getDrawClient().setMessage(anotherPlayerTurn);
 	}
 	
 	public void sendCanNotStep() throws IOException{
@@ -361,20 +349,16 @@ public class Client implements Runnable, Constants {
 		return new Bazar(getDataInputStream().readInt());
 	}
 	
-/*	private Stone[] getGamer(){
-		return this.gamer;
-	}*/
-	
 	private void setActiveGamer(int activeGamer){
 		this.activeGamer = activeGamer;
 	}
 	
 	private int getActiveGamer(){
-		return this.activeGamer;
+		return activeGamer;
 	}
 	
 	private int getSizeBazar(){
-		return this.mainFrame.getDrawClient().getSizeMarket();
+		return mainFrame.getDrawClient().getSizeMarket();
 	}
 	
 	public void setEndGame(boolean endGame){
@@ -382,16 +366,8 @@ public class Client implements Runnable, Constants {
 	}
 	
 	public boolean getEndGame(){
-		return this.endGame;
+		return endGame;
 	}
-	
-/*	private int getCountGamers(){
-		return this.countGamers;
-	}
-	
-	private void setCountGamers(int countGamers){
-		this.countGamers = countGamers;
-	}*/
 	
 	private void setNumberGamer(int numberGamer){
 		this.numberGamer = numberGamer;

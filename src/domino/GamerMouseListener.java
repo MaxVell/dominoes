@@ -43,10 +43,10 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	}
 	
 	private StoneView getStoneRect(int number){
-		if(this.dGame != null)
-			return this.dGame.getStoneRect()[number];//this.stoneRect[number];
+		if(dGame != null)
+			return dGame.getStoneRect()[number];//this.stoneRect[number];
 		else 
-			return this.dClient.getStoneRect()[number];
+			return dClient.getStoneRect()[number];
 	}
 	
 	@Override
@@ -68,14 +68,14 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	}
 
 	private boolean canChange(){
-		return this.canChange;
+		return canChange;
 	}
 	
 	private void setCanChange(boolean isPress){
 		if(dGame != null){
-			this.canChange = dGame.canChange()&& dGame.getGame().getGamer(0).haveStone(getStone()) && isPress;
+			canChange = dGame.canChange()&& dGame.getGame().getGamer(0).haveStone(getStone()) && isPress;
 		} else { 
-			this.canChange = dClient.canChange() && dClient.getGame().getGamer(0).haveStone(getStone())&& isPress;
+			canChange = dClient.canChange() && dClient.getGame().getGamer(0).haveStone(getStone())&& isPress;
 		}
 	}
 	
@@ -84,10 +84,10 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 		setCanChange(true);
 		if(canChange() ){
 			// TODO Auto-generated method stub
-			this.stone.setIsPress(true);
+			stone.setIsPress(true);
 			x = me.getX();
 			y = me.getX();
-			setStoneRect(this.stone.getStone());
+			setStoneRect(stone.getStone());
 			setStoneRectVisible(true);
 		}
 	}
@@ -97,22 +97,22 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	//	
 		if(canChange()){
 		// TODO Auto-generated method stub
-			this.stone.setIsPress(false);
+			stone.setIsPress(false);
 			stepGamer(me);
 			setStoneRectVisible(false);
-			this.stone.repaint();
+			stone.repaint();
 		}
 		setCanChange(false);
 	}
 
 	private Game getGame(){
-		if(this.dGame != null){
-			return this.dGame.getGame();
-		} else return this.dClient.getGame();
+		if(dGame != null){
+			return dGame.getGame();
+		} else return dClient.getGame();
 	}
 	
 	private Stone getStone(){
-		return this.stone.getStone();
+		return stone.getStone();
 	}
 	
 	private boolean stepGamer(MouseEvent me){
@@ -154,18 +154,18 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	}
 	
 	private int getX(){
-		return this.stone.getLocation().x;
+		return stone.getLocation().x;
 	}
 	
 	private int getY(){
-		return this.stone.getLocation().y;
+		return stone.getLocation().y;
 	}
 	
 	@Override
 	public void mouseDragged(MouseEvent me) {
 		// TODO Auto-generated method stub
 		if(canChange())
-		this.stone.setLocation(getX() + me.getX() - x, getY() + me.getY() - y);
+		stone.setLocation(getX() + me.getX() - x, getY() + me.getY() - y);
 	}
 
 	@Override
