@@ -9,19 +9,23 @@ public class MarketView {
 	private ArrayList<StoneView> stones;
 	private DrawGame dGame;
 	private DrawClient dClient;
+	private Random rand;
 	
 	public MarketView(Bazar market){
 		this.market = market;
 		this.stones = new ArrayList<StoneView>();
+		rand = new Random(System.currentTimeMillis());
 	}
 	
 	public MarketView(DrawClient dClient){
 		this.market = new Bazar();
 		this.stones = new ArrayList<StoneView>();
 		this.dClient = dClient;
+		rand = new Random(System.currentTimeMillis());
 	}
 	
 	public MarketView(Bazar market, ArrayList<StoneView> stones, DrawGame dGame){
+		rand = new Random(System.currentTimeMillis());
 		this.market = market;
 		this.stones = stones;
 		this.dGame = dGame;
@@ -29,9 +33,11 @@ public class MarketView {
 			stones.get(i).setStone(market.getStone(i));
 		}
 		setMouseListener();
+		
 	}
 	
 	public MarketView(Bazar market, ArrayList<StoneView> stones, DrawClient dClient){
+		rand = new Random(System.currentTimeMillis());
 		this.market = market;
 		this.stones = stones;
 		this.dClient = dClient;
@@ -69,11 +75,14 @@ public class MarketView {
 	}
 	
 	public StoneView putRandomStoneView(){
-		Random rand = new Random();
-		int numberStone = rand.nextInt(getStones().size());
+		int numberStone = getRandInt(getStones().size());
 		StoneView stoneView = getStones().remove(numberStone);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
 		return stoneView;
+	}
+	
+	private int getRandInt(int maxInt){
+		return rand.nextInt(maxInt);
 	}
 	
 	private Bazar getMarket(){

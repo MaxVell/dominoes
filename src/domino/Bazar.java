@@ -1,14 +1,15 @@
 package domino;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Random;
 
 public class Bazar {
 	private ArrayList<Stone> market;
+	private Random rand ;
 	
 	public Bazar(){
 		market = new ArrayList<Stone>();
+		rand = new Random(System.currentTimeMillis());
 		fullBazar();
 	}
 	
@@ -17,6 +18,7 @@ public class Bazar {
 		for(int i = 0; i < countStones; i++){
 			market.add(new Stone());
 		}
+		rand = new Random(System.currentTimeMillis());
 	}
 	
 	public Stone getStone(int index){
@@ -43,8 +45,8 @@ public class Bazar {
 		return market.size();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public HashSet<Stone>[] dispence(int countGamers, int countStones){
+//	@SuppressWarnings("unchecked")
+/*	public HashSet<Stone>[] dispence(int countGamers, int countStones){
 		HashSet<Stone>[] gamerStones = new HashSet[countGamers];
 		for(int i = 0; i < countGamers; i++)
 			gamerStones[i] = new HashSet<Stone>();
@@ -55,18 +57,20 @@ public class Bazar {
 				gamerStones[i].add(removeStone(randNumber));
 			}
 		return gamerStones;
-	}
+	}*/
 	
 	public Stone getRandom(){
-		Random rand = new Random();
-		int randNumber = rand.nextInt(this.getCountStones());
+		int randNumber = getRandInt(this.getCountStones());
 		return getStone(randNumber);
 	}
 	
 	public Stone removeRandom(){
-		Random rand = new Random();
-		int randNumber = rand.nextInt(this.getCountStones());
+		int randNumber = getRandInt(this.getCountStones());
 		return removeStone(randNumber);
+	}
+	
+	private int getRandInt(int maxInt){
+		return rand.nextInt(maxInt);
 	}
 	
 	public void addStone(Stone stone){
