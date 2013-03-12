@@ -44,32 +44,40 @@ public class MarketView {
 		setMouseListener();
 	}
 	
+	private DrawGame getDrawGame(){
+		return dGame;
+	}
+	
+	private DrawClient getDrawClient(){
+		return dClient;
+	}
+	
 	private void setMouseListener(){
-		int countStones = stones.size();
+		int countStones = getStones().size();
 		for(int i = 0; i < countStones; i++){
-			if(dGame != null)
-				stones.get(i).addMouseListener(new MarketMouseListener(stones.get(i), dGame ));
+			if(getDrawGame() != null)
+				getStones().get(i).addMouseListener(new MarketMouseListener(getStones().get(i), getDrawGame() ));
 			else
-				stones.get(i).addMouseListener(new MarketMouseListener(stones.get(i), dClient ));
+				getStones().get(i).addMouseListener(new MarketMouseListener(getStones().get(i), getDrawClient() ));
 		}
 	}
 	
 	public StoneView putStoneView(StoneView stoneView){
 		StoneView stone = stoneView;
 		stone.removeMouseListener(stone.getMouseListeners()[0]);
-		stones.remove(stoneView);
+		getStones().remove(stoneView);
 		return stone;
 	}
 	
 	public StoneView putStoneView(Stone stone){
 		StoneView stoneView = getStone(stone);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
-		stones.remove(stoneView);
+		getStones().remove(stoneView);
 		return stoneView;
 	}
 	
 	public StoneView putStone(int index){
-		StoneView stoneView = stones.remove(index);
+		StoneView stoneView = getStones().remove(index);
 		stoneView.removeMouseListener(stoneView.getMouseListeners()[0]);
 		return stoneView; 
 	}
@@ -95,13 +103,13 @@ public class MarketView {
 	
 	public void addStone(StoneView stoneView){
 		getStones().add(stoneView);
-		if(dGame != null){
-			stoneView.addMouseListener(new MarketMouseListener(stoneView, dGame ));
+		if(getDrawGame() != null){
+			stoneView.addMouseListener(new MarketMouseListener(stoneView, getDrawGame() ));
 			getMarket().addStone(stoneView.getStone());
 		} else{
-			stoneView.setStone(new Stone(stones.size(), stones.size()));
+			stoneView.setStone(new Stone(getStones().size(), getStones().size()));
 			getMarket().addStone(stoneView.getStone());
-			stoneView.addMouseListener(new MarketMouseListener(stoneView, dClient ));
+			stoneView.addMouseListener(new MarketMouseListener(stoneView, getDrawClient() ));
 		}
 	}
 	

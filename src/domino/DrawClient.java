@@ -82,7 +82,7 @@ private void createStonesView(){
 	stones = new ArrayList<StoneView>();
 	for(int i = 0; i < 28; i++){
 		stones.add(new StoneView());
-		add(this.stones.get(i));
+		add(stones.get(i));
 	}
 }
 
@@ -107,7 +107,7 @@ public void addStartGameLineStone(StoneView stoneView){
 	getGameLineView().addStart(stoneView);
 	try {
 		notifyClient();
-		mainFrame.getClient().sendStepGamer(stoneView.getStone(), true);
+		getClient().sendStepGamer(stoneView.getStone(), true);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -127,7 +127,7 @@ public void addEndGameLineStone(StoneView stoneView){
 	
 	try {
 		notifyClient();
-		mainFrame.getClient().sendStepGamer(stoneView.getStone(), false);
+		getClient().sendStepGamer(stoneView.getStone(), false);
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -192,7 +192,7 @@ private void setGamers(Gamer[] gamers){
 	int countGamers = gamers.length; 
 	for(int i = 0; i < countGamers; i++){
 		while((getGamerView(i).size() - gamers[i].getCountStones()) < 0){
-			getGamerView(i).addStone(marketView.putRandomStoneView());
+			getGamerView(i).addStone(getMarketView().putRandomStoneView());
 		}
 	}
 	int countStones = gamers[0].getCountStones();

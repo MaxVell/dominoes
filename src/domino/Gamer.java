@@ -49,11 +49,6 @@ public class Gamer {
 		return gamerStones.remove(stone);
 	}
 	
-/*	public Stone removeStone(int index){
-		this.GamerStones.remove(arg0)
-		return this.GamerStones.remove(index);
-	}*/
-	
 	public Stone getStone(int index){
 		Object[] stones = gamerStones.toArray();
 		return (Stone)stones[index];

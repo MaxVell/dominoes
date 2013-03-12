@@ -240,14 +240,18 @@ public class DrawComponents {
 		this.stoneWidth = stoneWidth;
 	}
 	
+	private BufferedImage getBackgroundImage(){
+		return backgroundImage;
+	}
+	
 	private void drawBackground(Graphics2D g){
 		int frameWidth = getPanel().getWidth();
 		int frameHeight = getPanel().getHeight();
-		int imageWidth = backgroundImage.getWidth();
-		int imageHeight = backgroundImage.getHeight();
+		int imageWidth = getBackgroundImage().getWidth();
+		int imageHeight = getBackgroundImage().getHeight();
 		for(int i = 0; i < frameWidth; i += imageWidth){
 			for(int j = 0; j < frameHeight; j += imageHeight)
-				g.drawImage(backgroundImage, i, j, getPanel());
+				g.drawImage(getBackgroundImage(), i, j, getPanel());
 		}
 	}
 	
@@ -258,8 +262,7 @@ public class DrawComponents {
 	private void setStoneWidth(){
 		int horWidth = (getPanel().getWidth() - getGamerImageWidth() - 6 * getIntProperty("insetsGamer") - 2 * getIntProperty("insetsStone")) / 19;
 		int verWidth = (getPanel().getHeight() - getGamerImageWidth() - 6 * getIntProperty("insetsGamer") - 2 * getIntProperty("insetsStone")) / 19;
-		stoneWidth = (horWidth < verWidth)?horWidth:verWidth;
-		setStoneWidth(stoneWidth);
+		setStoneWidth((horWidth < verWidth)?horWidth:verWidth);
 	}
 	
 	private int getGamerPanelHeight(){

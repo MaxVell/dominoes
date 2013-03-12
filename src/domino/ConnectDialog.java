@@ -168,29 +168,41 @@ public class ConnectDialog extends Dialog implements ActionListener, WindowListe
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private String getIP(){
+		return ipTextField.getText();
+	}
 
+	private String getClientName(){
+		return textGamerName.getText();
+	}
+	
+	private void setErrorMessage(String message){
+		errorMessage.setText(message);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		if(isCorrectName() && !isCorrectIP(ipTextField.getText())){
-			errorMessage.setText(errorIP);
+		if(isCorrectName() && !isCorrectIP(getIP())){
+			setErrorMessage(errorIP);
 		}
-		if(!isCorrectName() && isCorrectIP(ipTextField.getText())){
-			errorMessage.setText(errorEnterName);
+		if(!isCorrectName() && isCorrectIP(getIP())){
+			setErrorMessage(errorEnterName);
 		}
-		if(!isCorrectName() && !isCorrectIP(ipTextField.getText())){
-			errorMessage.setText(errorIP + " and " + errorEnterName);
+		if(!isCorrectName() && !isCorrectIP(getIP())){
+			setErrorMessage(errorIP + " and " + errorEnterName);
 		}
-		if(isCorrectIP(ipTextField.getText()) && isCorrectName()){
+		if(isCorrectIP(getIP()) && isCorrectName()){
 			try {
-				setIPAddress(InetAddress.getByName(ipTextField.getText()));
+				setIPAddress(InetAddress.getByName(getIP()));
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			getMainFrame().setIPAddress(getIPAddress());
 			getMainFrame().setCreateClient(true);
-			getMainFrame().setClientName(textGamerName.getText());
+			getMainFrame().setClientName(getClientName());
 			dispose();
 		}
 	}

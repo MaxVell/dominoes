@@ -42,11 +42,19 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 		getStoneRect(1).setVertical();
 	}
 	
+	private DrawGame getDrawGame(){
+		return dGame;
+	}
+	
+	private DrawClient getDrawClient(){
+		return dClient;
+	}
+	
 	private StoneView getStoneRect(int number){
-		if(dGame != null)
-			return dGame.getStoneRect()[number];//this.stoneRect[number];
+		if(getDrawGame() != null)
+			return getDrawGame().getStoneRect()[number];//this.stoneRect[number];
 		else 
-			return dClient.getStoneRect()[number];
+			return getDrawClient().getStoneRect()[number];
 	}
 	
 	@Override
@@ -72,10 +80,10 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	}
 	
 	private void setCanChange(boolean isPress){
-		if(dGame != null){
-			canChange = dGame.canChange()&& dGame.getGame().getGamer(0).haveStone(getStone()) && isPress;
+		if(getDrawGame() != null){
+			canChange = getDrawGame().canChange()&& getDrawGame().getGame().getGamer(0).haveStone(getStone()) && isPress;
 		} else { 
-			canChange = dClient.canChange() && dClient.getGame().getGamer(0).haveStone(getStone())&& isPress;
+			canChange = getDrawClient().canChange() && getDrawClient().getGame().getGamer(0).haveStone(getStone())&& isPress;
 		}
 	}
 	
@@ -84,10 +92,10 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 		setCanChange(true);
 		if(canChange() ){
 			// TODO Auto-generated method stub
-			stone.setIsPress(true);
+			getStoneView().setIsPress(true);
 			x = me.getX();
 			y = me.getX();
-			setStoneRect(stone.getStone());
+			setStoneRect(getStoneView().getStone());
 			setStoneRectVisible(true);
 		}
 	}
@@ -97,18 +105,22 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	//	
 		if(canChange()){
 		// TODO Auto-generated method stub
-			stone.setIsPress(false);
+			getStoneView().setIsPress(false);
 			stepGamer(me);
 			setStoneRectVisible(false);
-			stone.repaint();
+			getStoneView().repaint();
 		}
 		setCanChange(false);
 	}
 
 	private Game getGame(){
-		if(dGame != null){
-			return dGame.getGame();
-		} else return dClient.getGame();
+		if(getDrawGame() != null){
+			return getDrawGame().getGame();
+		} else return getDrawClient().getGame();
+	}
+	
+	private StoneView getStoneView(){
+		return stone;
 	}
 	
 	private Stone getStone(){
@@ -118,21 +130,21 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	private boolean stepGamer(MouseEvent me){
 		if(inRect(me, 1)) {
 			if(getGame().getGameLine().canAttachEnd(getStone())){
-				if(dGame != null){
-					dGame.addEndGameLineStone(0, stone, true);
+				if(getDrawGame() != null){
+					getDrawGame().addEndGameLineStone(0, getStoneView(), true);
 				//	dGame.sendGame();
 				} else{
-					dClient.addEndGameLineStone(stone);
+					getDrawClient().addEndGameLineStone(getStoneView());
 				}
 			}
 		}
 		if(inRect(me, 0)){
 			if(getGame().getGameLine().canAttachStart(getStone())){
-				if(dGame != null){
-					dGame.addStartGameLineStone(0,stone, true);
+				if(getDrawGame() != null){
+					getDrawGame().addStartGameLineStone(0,getStoneView(), true);
 				//	dGame.sendGame();
 				} else{
-					dClient.addStartGameLineStone(stone);
+					getDrawClient().addStartGameLineStone(getStoneView());
 				}
 			}
 		}
@@ -141,8 +153,8 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	}
 	
 	private boolean inRect(MouseEvent me, int number){
-		int x1 = getStoneRect(number).getLocation().x - stone.getWidth();
-		int y1 = getStoneRect(number).getLocation().y - stone.getHeight();
+		int x1 = getStoneRect(number).getLocation().x - getStoneView().getWidth();
+		int y1 = getStoneRect(number).getLocation().y - getStoneView().getHeight();
 		int x2 = getStoneRect(number).getLocation().x + getStoneRect(number).getWidth(); 
 		int y2 = getStoneRect(number).getLocation().y + getStoneRect(number).getHeight();
 		int x = getX() + me.getX() - this.x;
@@ -165,7 +177,7 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent me) {
 		// TODO Auto-generated method stub
 		if(canChange())
-		stone.setLocation(getX() + me.getX() - x, getY() + me.getY() - y);
+			getStoneView().setLocation(getX() + me.getX() - x, getY() + me.getY() - y);
 	}
 
 	@Override

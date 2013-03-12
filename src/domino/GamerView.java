@@ -27,7 +27,7 @@ public class GamerView {
 	}
 
 	public StoneView putLast(){
-		StoneView stone = stones.remove(size() - 1);
+		StoneView stone = getStones().remove(size() - 1);
 		stone.removeMouseListener(stone.getMouseListeners()[0]);
 		stone.removeMouseMotionListener(stone.getMouseMotionListeners()[0]);
 		return stone;
@@ -41,13 +41,21 @@ public class GamerView {
 		return stones.size();
 	}
 	
+	private DrawGame getDrawGame(){
+		return drawGame;
+	}
+	
+	private DrawClient getDrawClient(){
+		return drawClient;
+	}
+	
 	public void addStone(StoneView stoneView){
 		GamerMouseListener MouseListener;
-		if(drawGame != null){
+		if(getDrawGame() != null){
 			getGamer().addStone(stoneView.getStone());
-			MouseListener = new GamerMouseListener(stoneView, drawGame);
+			MouseListener = new GamerMouseListener(stoneView, getDrawGame());
 		} else
-			MouseListener = new GamerMouseListener(stoneView, drawClient);
+			MouseListener = new GamerMouseListener(stoneView, getDrawClient());
 		stoneView.addMouseListener(MouseListener);
 		stoneView.addMouseMotionListener(MouseListener);
 		stoneView.setIsOpen(true);

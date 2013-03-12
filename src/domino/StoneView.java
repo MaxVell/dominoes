@@ -165,13 +165,13 @@ public class StoneView extends JPanel{
 	}
 	
 	private void transferStone(double delta){
-		this.setSize(4 * width, 4 * width);
+		this.setSize(4 * getStoneWidth(), 4 * getStoneWidth());
 		setTheta(getTheta() + delta);
 		double theta = getTheta();
 		AffineTransform at;
     	at  = new AffineTransform();
-    	at.setToRotation(theta, 2* width, 2 * width);
-    	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, 3* width / 2, width));
+    	at.setToRotation(theta, 2* getStoneWidth(), 2 * getStoneWidth());
+    	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, 3* getStoneWidth() / 2, getStoneWidth()));
   //  	AffineTransformOp atOp  = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
   //  	atOp.filter(ImgNoRotated, ImgRotated);
     	getGraphics2D().transform(at);
@@ -185,23 +185,23 @@ public class StoneView extends JPanel{
 		if(theta == Math.PI / 2){
 			AffineTransform at;
         	at  = new AffineTransform();
-        	at.setToRotation(-Math.PI/2, width / 2, width);
-        	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, width / 2, width / 2));
+        	at.setToRotation(-Math.PI/2, getStoneWidth() / 2, getStoneWidth());
+        	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, getStoneWidth() / 2, getStoneWidth() / 2));
       //  	AffineTransformOp atOp  = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
       //  	atOp.filter(ImgNoRotated, ImgRotated);
         	getGraphics2D().transform(at);
 			return 0;
 		}
 		if(theta == Math.PI){
-			AffineTransform ct = AffineTransform.getRotateInstance(theta, width / 2, width);
+			AffineTransform ct = AffineTransform.getRotateInstance(theta, getStoneWidth() / 2, getStoneWidth());
 			getGraphics2D().transform(ct);
 			return 0;
 		}
 		if(theta == 3 * Math.PI / 2){
 			AffineTransform at;
         	at  = new AffineTransform();
-        	at.setToRotation(Math.PI/2, width / 2, width);
-        	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, -width / 2, -width / 2));
+        	at.setToRotation(Math.PI/2, getStoneWidth() / 2, getStoneWidth());
+        	at.concatenate(new AffineTransform(1, 0.0, 0.0, 1, -getStoneWidth() / 2, -getStoneWidth() / 2));
       //  	AffineTransformOp atOp  = new AffineTransformOp(at,AffineTransformOp.TYPE_BILINEAR);
       //  	atOp.filter(ImgNoRotated, ImgRotated);
         	getGraphics2D().transform(at);
@@ -223,8 +223,8 @@ public class StoneView extends JPanel{
 	}
 
 	private void drawInvertedStone(){
-			drawInvertedStoneRect(0, width, width, width);
-			drawInvertedStoneRect(0, 0, width, width);
+			drawInvertedStoneRect(0, getStoneWidth(), getStoneWidth(), getStoneWidth());
+			drawInvertedStoneRect(0, 0, getStoneWidth(), getStoneWidth());
 	}
 	
 	private void drawInvertedStoneRect(int posx, int posy, int width, int height){
@@ -264,46 +264,46 @@ public class StoneView extends JPanel{
 	
 	private void drawPoints(int posx, int posy, int countPoints){
 		getGraphics2D().setColor(Color.WHITE);
-		getGraphics2D().fillRoundRect(posx, posy, width, width, 10, 10);
+		getGraphics2D().fillRoundRect(posx, posy, getStoneWidth(), getStoneWidth(), 10, 10);
 		getGraphics2D().setColor(getColor()); 
-		getGraphics2D().drawRoundRect(posx, posy, width, width, 10, 10);
-		int shift = width / 5;
-		int w = width / 8;
+		getGraphics2D().drawRoundRect(posx, posy, getStoneWidth(), getStoneWidth(), 10, 10);
+		int shift = getStoneWidth()/ 5;
+		int w = getStoneWidth() / 8;
 		getGraphics2D().setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON );
-		int height = width;
+		int height = getStoneWidth();
 		switch (countPoints){
 		case 1: 
-			getGraphics2D().fillOval(posx + width / 2 - shift / 2, posy + width / 2 - shift / 2, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() / 2 - shift / 2, posy + getStoneWidth() / 2 - shift / 2, shift, shift);
 			break;
 		case 2: 
 			getGraphics2D().fillOval(posx + w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + w, shift, shift);
 			break;
 		case 3: 
 			getGraphics2D().fillOval(posx + w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx +  width / 2 - shift / 2, posy +  width / 2 - shift / 2, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + w, shift, shift);
+			getGraphics2D().fillOval(posx +  getStoneWidth() / 2 - shift / 2, posy +  getStoneWidth() / 2 - shift / 2, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + w, shift, shift);
 			break;
 		case 4: 
 			getGraphics2D().fillOval(posx + w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + height - 3 * w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + w, shift, shift);
 			getGraphics2D().fillOval(posx + w, posy + w, shift, shift);
 			break;
 		case 5: 
 			getGraphics2D().fillOval(posx + w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + height - 3 * w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth()- 3 * w, posy + w, shift, shift);
 			getGraphics2D().fillOval(posx + w, posy + w, shift, shift);
-			getGraphics2D().fillOval(posx +  width / 2 - shift / 2, posy +  width / 2 - shift / 2, shift, shift);
+			getGraphics2D().fillOval(posx +  getStoneWidth() / 2 - shift / 2, posy +  getStoneWidth() / 2 - shift / 2, shift, shift);
 			break;
 		case 6:
 			getGraphics2D().fillOval(posx + w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + height - 3 * w, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + height - 3 * w, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + w, shift, shift);
 			getGraphics2D().fillOval(posx + w, posy + w, shift, shift);
-			getGraphics2D().fillOval(posx + w, posy + + width / 2 - shift / 2, shift, shift);
-			getGraphics2D().fillOval(posx + width - 3 * w, posy + + width / 2 - shift / 2, shift, shift);
+			getGraphics2D().fillOval(posx + w, posy + + getStoneWidth() / 2 - shift / 2, shift, shift);
+			getGraphics2D().fillOval(posx + getStoneWidth() - 3 * w, posy + + getStoneWidth() / 2 - shift / 2, shift, shift);
 			break;
 	}	
 		getGraphics2D().setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF );

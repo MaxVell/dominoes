@@ -10,6 +10,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Properties;
 
+import javax.swing.JFrame;
+
 public class Server implements Runnable, Constants{
 	private Thread thread;
 	private MainFrame jframe;
@@ -43,7 +45,7 @@ public class Server implements Runnable, Constants{
 @Override
 public void run() {
 	// TODO Auto-generated method stub
-    endGame = false;
+    setEndGame(false);
       try {
     	if(createServerSocket()){
     		crDialog = new CreateDialog(jframe, this);
@@ -53,19 +55,19 @@ public void run() {
     			setDataInputStream();
     			setDataOutputStream();
     			
-    			getDataOutputStream(0).writeBoolean(startGame);
+    			getDataOutputStream(0).writeBoolean(getStartGame());
     			readClientName();
     			sendServerName();
         	
-    			sendGame(jframe.getGame(), 1);
-    			while(!endGame){
-    				if(jframe.getGame().getActiveGamer() != getNumberServer()){
+    			sendGame(getGame(), 1);
+    			while(!getEndGame()){
+    				if(getGame().getActiveGamer() != getNumberServer()){
     					try{
     						dialogClient();
     					} catch (SocketException se){
-    						new DialogFrame(jframe.getFrame(), "Client disconnected");
+    						new DialogFrame(getFrame(), "Client disconnected");
     						getServerSocket().close();
-    						endGame = true;
+    						setEndGame(true);
     						getMainFrame().getDrawGame().setVisible(false);
     					}
     				}
@@ -74,6 +76,22 @@ public void run() {
      } catch(IOException x) {
     	 x.printStackTrace(); 
     	 }
+}
+
+private JFrame getFrame(){
+	return jframe.getFrame();
+}
+
+private boolean getStartGame(){
+	return startGame;
+}
+
+private void setEndGame(boolean endGame){
+	this.endGame = endGame;
+}
+
+private boolean getEndGame(){
+	return endGame;
 }
 
 private Properties getProperties(){
@@ -209,6 +227,10 @@ private MainFrame getMainFrame(){
 	return jframe;
 }
 
+private DrawGame getDrawGame(){
+	return jframe.getDrawGame();
+}
+
 public void dialogClient() throws IOException{
 	boolean isEndStep = false;
 	int numStep;
@@ -219,32 +241,32 @@ public void dialogClient() throws IOException{
 			Stone stone = readStone();
 			boolean inStart = getDataInputStream(0).readBoolean();
 			if(inStart){
-				jframe.getDrawGame().addStartGameLineStone(1, jframe.getDrawGame().getStoneView(1, stone), false);
+				getDrawGame().addStartGameLineStone(1, getDrawGame().getStoneView(1, stone), false);
 			}
 			if(!inStart){
-				jframe.getDrawGame().addEndGameLineStone(1, jframe.getDrawGame().getStoneView(1, stone), false);
+				getDrawGame().addEndGameLineStone(1, getDrawGame().getStoneView(1, stone), false);
 			}
 			isEndStep = true;
 			break;
 		case 1:
 			int numbStone = getDataInputStream(0).readInt();
-				Stone s = jframe.getDrawGame().putFromMarket(numbStone);
+				Stone s = getDrawGame().putFromMarket(numbStone);
 				sendStone(s);
-				jframe.getDrawGame().repaint();
+				getDrawGame().repaint();
 			break;
 		case 2:
-			jframe.getDrawGame().getGame().nextGamer();
+			getDrawGame().getGame().nextGamer();
 			isEndStep = true;
 			break;
 		}
 	}while(!isEndStep);
 	setCanChangeServer(getGame().getActiveGamer() == getNumberServer());
-	setMessage(jframe.getDrawGame().getGame());
-	if(!jframe.getDrawGame().getGame().canStep() && (jframe.getDrawGame().getGame().getBazar().getCountStones() == 0)){
-		jframe.getDrawGame().getGame().nextGamer();
-		sendGame(jframe.getDrawGame().getGame(), 1);
+	setMessage(getDrawGame().getGame());
+	if(!getDrawGame().getGame().canStep() && (getDrawGame().getGame().getBazar().getCountStones() == 0)){
+		getDrawGame().getGame().nextGamer();
+		sendGame(getDrawGame().getGame(), 1);
 	}
-	jframe.getDrawGame().repaint();
+	getDrawGame().repaint();
 	if(getGame().getActiveGamer() == getNumberServer()) 
 		waitServer();
 }

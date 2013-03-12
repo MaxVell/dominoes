@@ -58,15 +58,27 @@ public class MarketMouseListener implements MouseListener, MouseMotionListener, 
 		
 	}
 
+	private DrawGame getDrawGame(){
+		return dGame;
+	}
+	
+	private DrawClient getDrawClient(){
+		return dClient;
+	}
+	
+	private StoneView getStoneView(){
+		return stoneView;
+	}
+	
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		if(!getGame().canStep()){
-			stoneView.setIsOpen(true);
-			if(dGame != null)
-				dGame.putFromMarket(stoneView);
+			getStoneView().setIsOpen(true);
+			if(getDrawGame() != null)
+				getDrawGame().putFromMarket(getStoneView());
 			else{
-				dClient.putFromMarket(stoneView);
+				getDrawClient().putFromMarket(getStoneView());
 			}
 		}
 		

@@ -58,14 +58,14 @@ public class Client implements Runnable, Constants {
             names[1] = readServerName();
         //    setGamersName();
             Game game = readGame();
-            mainFrame.drawClientGame(game, getActiveGamer() == getNumberGamer(), names);
+            getMainFrame().drawClientGame(game, getActiveGamer() == getNumberGamer(), names);
             setMessage(game);
             while(!getEndGame()){
             	if((getActiveGamer() != getNumberGamer())){
             		try{
             			readGameStep();
             		} catch (SocketException se){
-            			new DialogFrame(mainFrame.getFrame(), "Server disconnected");
+            			new DialogFrame(getMainFrame().getFrame(), "Server disconnected");
             			closeSocket();
             			setEndGame(true);
             			getMainFrame().getDrawClient().setVisible(false);
@@ -102,13 +102,13 @@ public class Client implements Runnable, Constants {
 		if(game == null)
 			return true;
 		if(game.getGameLine().isFish()){
-			new DialogFrame(mainFrame.getFrame(), "Fish!");
+			new DialogFrame(getMainFrame().getFrame(), "Fish!");
 			return true;
 		}
 		int countGamers = game.getGamers().length;
 		for(int i = 0; i < countGamers; i++){
 			if(game.getGamer(i).getCountStones() == 0){
-				new DialogFrame(mainFrame.getFrame(), names[i] + " win this round" + "gamer[" + i + "]:" + game.getGamer(i).getCountStones());
+				new DialogFrame(getMainFrame().getFrame(), names[i] + " win this round" + "gamer[" + i + "]:" + game.getGamer(i).getCountStones());
 				return true;
 			}
 		}
@@ -118,10 +118,10 @@ public class Client implements Runnable, Constants {
 	private void readGameStep() throws IOException{
 			Game game = readGame();
 			if(!isEndRound(game)){
-				if(!game.canStep() && (mainFrame.getDrawClient().getSizeMarket() == 0)){
+				if(!game.canStep() && (getMainFrame().getDrawClient().getSizeMarket() == 0)){
 					setMessage(anotherPlayerTurn + " in readGameStep");
 				} else{
-					mainFrame.getDrawClient().dispenceStoneView(game);
+					getMainFrame().getDrawClient().dispenceStoneView(game);
 					setCanChangeClient(getNumberGamer() == getActiveGamer());
 					setMessage(game);
 					if(getNumberGamer() == getActiveGamer())
@@ -259,7 +259,7 @@ public class Client implements Runnable, Constants {
 		getDataOutputStream().writeBoolean(inStartGameLine);
 		setActiveGamer(0);
 		setCanChangeClient(false);
-		mainFrame.getDrawClient().setMessage(anotherPlayerTurn);
+		getMainFrame().getDrawClient().setMessage(anotherPlayerTurn);
 	}
 	
 	public void sendCanNotStep() throws IOException{
