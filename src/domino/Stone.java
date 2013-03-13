@@ -42,16 +42,27 @@ final public class Stone {
 		return getStart() + getFinish();
 	}
 	
-	public boolean equals(Stone stone){
-		if(stone == null)
-			return false;
-		if(this.hashCode() == stone.hashCode())
-			return true;
-		else return false;
-	}
+
 	
-	public int hashCode(){
-		return getStart() * 10 + getFinish();
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Stone other = (Stone) obj;
+		if (finishNum != other.finishNum)
+			return false;
+		if (startNum != other.startNum)
+			return false;
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return startNum * 10 + finishNum;
 	}
 	
 	public boolean canAttach(Stone stone){
