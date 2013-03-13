@@ -75,6 +75,7 @@ public void run() {
     						getServerSocket().close();
     						setEndGame(true);
     						getMainFrame().getDrawGame().setVisible(false);
+    						getMainFrame().showStartPanel();
     					}
     				}
     			}

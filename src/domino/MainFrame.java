@@ -139,6 +139,10 @@ public class MainFrame extends JPanel{
 		startPanel.setVisible(false);
 	}
 	
+	public void showStartPanel(){
+		startPanel.setVisible(true);
+	}
+	
 	private String getClientName(){
 		return clientName;
 	}

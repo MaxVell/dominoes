@@ -69,6 +69,7 @@ public class Client implements Runnable, Constants {
             			closeSocket();
             			setEndGame(true);
             			getMainFrame().getDrawClient().setVisible(false);
+            			getMainFrame().showStartPanel();
             		}
             	} 
             }
