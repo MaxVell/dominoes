@@ -68,6 +68,7 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 		add(buttonStart);
 		add(errorMessage);
 		addWindowListener(this);
+		buttonStart.setEnabled(false);
 		setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - this.getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - this.getHeight() / 2);
 		setVisible(true);
 	}
@@ -82,6 +83,14 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 	
 	public void addConnection(String param){
 		gamers.add(param);
+		if(gamers.getItemCount() > 0)
+			buttonStart.setEnabled(true);
+	}
+	
+	public void removeConnection(String param){
+		gamers.remove(param);
+		if(gamers.getItemCount() == 0)
+			buttonStart.setEnabled(false);
 	}
 	
 	private Server getServer(){
@@ -152,10 +161,11 @@ public class CreateDialog extends Dialog implements ActionListener, WindowListen
 				mainFrame.getGame().setGamerName(0, textServerName.getText());
 				mainFrame.getServer().notifyServer();
 				setStartGame(true);
+				dispose();
 			} else{
-				getServer().closeServerSocket();
+			//	getServer().closeServerSocket();
 			}
-			dispose();
+		//	dispose();
 		} else {
 			errorMessage.setText(errorEnterName);
 		}

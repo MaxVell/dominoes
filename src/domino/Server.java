@@ -54,12 +54,18 @@ public void run() {
     			waitServer();
     			setDataInputStream();
     			setDataOutputStream();
-    			
+    			try{
     			getDataOutputStream(0).writeBoolean(getStartGame());
     			readClientName();
     			sendServerName();
         	
     			sendGame(getGame(), 1);
+    			} catch(SocketException se){
+    				new DialogFrame(getFrame(), "Client disconnected");
+					getServerSocket().close();
+					setEndGame(true);
+					getMainFrame().getDrawGame().setVisible(false);
+    			}
     			while(!getEndGame()){
     				if(getGame().getActiveGamer() != getNumberServer()){
     					try{

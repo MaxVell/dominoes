@@ -40,10 +40,18 @@ public class DrawGame extends JPanel implements Constants{
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
+		setNames();
 		createStonesView();
 		createComponents(getGame(), stones);
 		dispence();
 		createStoneRect();
+	}
+	
+	private void setNames(){
+		int countGamers = getGame().getGamers().length;
+		for(int i = 0; i < countGamers; i++)
+			if(getGame().getGamerName(i) == null)
+				getGame().setGamerName(i, "");
 	}
 	
 	private void dispence(){
