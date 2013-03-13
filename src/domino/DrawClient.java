@@ -47,7 +47,7 @@ public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canC
 	createStonesView();
 	createComponents(game, stones);
 	dispence(game);
-	mainFrame.hideWaitPanel();
+//	mainFrame.hideWaitPanel();
 }
 
 private void dispence(Game game){

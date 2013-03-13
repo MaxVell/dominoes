@@ -50,7 +50,7 @@ public void run() {
     	if(createServerSocket()){
     		crDialog = new CreateDialog(jframe, this);
     		if(connectClient()){
-    			crDialog.addConnection(getSocket().toString());
+    			crDialog.addConnection(getSocket()[0].getInetAddress().toString());
     			waitServer();
     			setDataInputStream();
     			setDataOutputStream();
