@@ -9,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.Properties;
-
 import javax.swing.JFrame;
 
 public class Server implements Runnable, Constants{
@@ -23,7 +22,7 @@ public class Server implements Runnable, Constants{
 	private DataInputStream[] in;
 	private ServerSocket ss;
 	private Socket[] socket;
-	private int numberServer = 0;
+	private int numberServer;
 	private Properties properties;
 	
 	
@@ -37,10 +36,10 @@ public class Server implements Runnable, Constants{
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
+		numberServer = 0;
 	   thread = new Thread(this,"server");
 	   thread.start();
-	   
-	      }
+	   }
 
 @Override
 public void run() {
@@ -77,6 +76,8 @@ public void run() {
     						getMainFrame().getDrawGame().setVisible(false);
     						getMainFrame().showStartPanel();
     					}
+    				} else {
+    					waitServer();
     				}
     			}
         }	}
@@ -119,6 +120,7 @@ public synchronized void waitServer(){
 }
 
 public synchronized void notifyServer(){
+//	if(thread.isAlive())
 	notify();
 }
 
@@ -194,8 +196,9 @@ private void setSocket(Socket socket){
 		int oldSocketLength = oldSocket.length;
 		this.socket = new Socket[oldSocketLength + 1];
 		
-		for(int i = 0; i < oldSocketLength; i++)
+		for(int i = 0; i < oldSocketLength; i++){
 			this.socket[i] = oldSocket[i];
+		}
 			this.socket[oldSocketLength] = socket;
 		}
 	
@@ -274,8 +277,8 @@ public void dialogClient() throws IOException{
 		sendGame(getDrawGame().getGame(), 1);
 	}
 	getDrawGame().repaint();
-	if(getGame().getActiveGamer() == getNumberServer()) 
-		waitServer();
+/*	if(getGame().getActiveGamer() == getNumberServer()) 
+		waitServer();*/
 }
 
 private Stone readStone() throws IOException{
@@ -299,6 +302,7 @@ private void sendServerName() throws IOException{
 
 private void setMessage(Game game){
 	if(game.isEndRound() && (game.getGamers()[1].getCountStones() == 0)){
+		getDrawGame().showMessage(anotherPlayerWinRound);
 	//	getGame().scoreCount();
 	//	new DialogFrame(getMainFrame().getFrame(), anotherPlayerWinRound);
 	} else {

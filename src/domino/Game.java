@@ -277,7 +277,6 @@ public class Game {
 	
 	public void nextGamer(){
 		activeGamer = (activeGamer + 1) % this.getCountGamers();
-//		System.out.println("next gamer: " + this.activeGamer);
 	}
 	
 	public void setScores(int[] scores){

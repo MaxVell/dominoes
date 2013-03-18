@@ -6,8 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DrawGame extends JPanel implements Constants{
@@ -27,6 +25,7 @@ public class DrawGame extends JPanel implements Constants{
 	private MarketView marketView;
 	private GameLineView gameLineView;
 	private String message;
+	private MessagePanel messagePanel;
 
 	public DrawGame(Game game, MainFrame mainFrame, int menuHeight){
 		setLayout(null);
@@ -40,6 +39,9 @@ public class DrawGame extends JPanel implements Constants{
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
+		messagePanel = new MessagePanel();
+		messagePanel.setVisible(false);
+		add(messagePanel);
 		setNames();
 		createStonesView();
 		createComponents(getGame(), stones);
@@ -170,16 +172,20 @@ public class DrawGame extends JPanel implements Constants{
 	
 	public boolean isEndRound(boolean isServer){
 		if(getGame().getGameLine().isFish()){
-			new DialogFrame(getFrame(), "Fish!");
+			System.out.println("fish");
+			showMessage("Fish!");
 			return true;
 		}
 		int countGamers = gamerView.length;
 		for(int i = 0; i < countGamers; i++)
 		if(getGamerView(i).size() == 0){
-			if(isServer)
-				new DialogFrame(getFrame(), youWinRound );
-			else
-				new DialogFrame(getFrame(), anotherPlayerWinRound);
+			if(isServer){
+				showMessage(youWinRound);
+				System.out.println("you win");
+			} else{
+				showMessage(anotherPlayerWinRound);
+				System.out.println("another win");
+			}
 			return true;
 		}
 			return false;
@@ -208,7 +214,8 @@ public class DrawGame extends JPanel implements Constants{
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		setGraphics2D((Graphics2D)g);
-		dComponents.drawGame(getGraphics2D(), gamerView, getMarketView(), getGameLineView(), stoneRect,getGame().getGamersName(), getGame().getScore(),getMessage());
+	//	messagePanel.setVisible(true);
+		dComponents.drawGame(getGraphics2D(), gamerView, getMarketView(), getGameLineView(), stoneRect,getGame().getGamersName(), getGame().getScore(),getMessage(), getMessagePanel());
 	}
 	
 	private void setGraphics2D(Graphics2D g){
@@ -273,22 +280,28 @@ public class DrawGame extends JPanel implements Constants{
 	}*/
 	
 	private void newRound(){
-/*		getGame().scoreCount();
+		getGame().scoreCount();
 		if(getGame().isEndGame()){
 			sendWinner();
-				new DialogFrame(getFrame(), getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
+			showMessage(getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
+			//	new DialogFrame(getFrame(), getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
 			getGame().newScores();
 		} 
 		resetStoneView();
 		getGame().dispence();
 		dispence();
 		sendGame();
-		repaint();*/
-		removeAll();
+		repaint();
+		
+		
+		
+		
+/*		removeAll();
 		getGame().scoreCount();
 		if(getGame().isEndGame()){
 			sendWinner();
-				new DialogFrame(getFrame(), getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
+			showMessage(getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
+			//	new DialogFrame(getFrame(), getGame().getGamerName(getGame().getNumberWinner()) + " win game!");
 			getGame().newScores();
 		}
 		getGame().dispence();
@@ -297,7 +310,20 @@ public class DrawGame extends JPanel implements Constants{
 		dispence();
 		createStoneRect();
 		sendGame();
-		repaint();
+		repaint();*/
+	}
+	
+	public void showMessage(String message){
+		System.out.println("set visible true");
+		messagePanel.setVisible(true);
+		messagePanel.setMessage(message);
+	//	repaint();
+//		messagePanel.setLocation((getMainFrame().getWidth() - messagePanel.getWidth()) / 2, (getMainFrame().getHeight() - messagePanel.getHeight())/ 2);
+		
+	}
+	
+	private MessagePanel getMessagePanel(){
+		return messagePanel;
 	}
 	
 	public void setMessage(String message){
@@ -305,9 +331,9 @@ public class DrawGame extends JPanel implements Constants{
 		repaint();
 	}
 	
-	private JFrame getFrame(){
+/*	private JFrame getFrame(){
 		return mainFrame.getFrame();
-	}
+	}*/
 	
 	private String getMessage(){
 		return message;

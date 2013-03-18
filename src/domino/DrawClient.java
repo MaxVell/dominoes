@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DrawClient extends JPanel implements Constants{
@@ -30,6 +29,7 @@ private GamerView[] gamerView;
 private MarketView marketView;
 private GameLineView gameLineView;
 private Game game;
+private MessagePanel messagePanel;
 
 public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canChange, String[] names){
 	setLayout(null);
@@ -44,6 +44,9 @@ public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canC
 	}catch(IOException e){
 	//	new HelpDialog(this, "Error", "");
 	}
+	messagePanel = new MessagePanel();
+	messagePanel.setVisible(false);
+	add(messagePanel);
 	createStonesView();
 	createComponents(game, stones);
 	dispence(game);
@@ -115,10 +118,12 @@ public void addStartGameLineStone(StoneView stoneView){
 	getGame().stepStart(0, stoneView.getStone());
 	getGameLineView().setGameLine(getGame().getGameLine());
 	if(getGamerView(0).getStones().size() == 0){
-		new DialogFrame(getMainFrame(), youWinRound);
+		showMessage(youWinRound);
+	//	new DialogFrame(getMainFrame(), youWinRound);
 	}
 	if(getGame().getGameLine().isFish())
-		new DialogFrame(getMainFrame(), "Fish!");
+		showMessage("Fish!");
+	//	new DialogFrame(getMainFrame(), "Fish!");
 }
 
 public void addEndGameLineStone(StoneView stoneView){
@@ -134,10 +139,12 @@ public void addEndGameLineStone(StoneView stoneView){
 	}
 	getGame().stepEnd(0, stoneView.getStone());
 	if(getGamerView(0).getStones().size() == 0){
-		new DialogFrame(getMainFrame(), youWinRound);
+		showMessage(youWinRound);
+		//new DialogFrame(getMainFrame(), youWinRound);
 	}
 	if(getGame().getGameLine().isFish())
-		new DialogFrame(getMainFrame(), "Fish!");
+		showMessage("Fish!");
+		//new DialogFrame(getMainFrame(), "Fish!");
 }
 
 public void putFromMarket(StoneView stoneView){
@@ -247,11 +254,21 @@ public int getNumberGamer(){
 protected void paintComponent(Graphics g){
 	super.paintComponent(g);
 	setGraphics2D((Graphics2D)g);	
-	dComponents.drawGame(getGraphics2D(), getGamersView(), getMarketView(), getGameLineView(), stoneRect, gamersName, getGame().getScore(), getMessage());
+	dComponents.drawGame(getGraphics2D(), getGamersView(), getMarketView(), getGameLineView(), stoneRect, gamersName, getGame().getScore(), getMessage(), getMessagePanel());
+}
+
+private MessagePanel getMessagePanel(){
+	return messagePanel;
 }
 
 private void setGraphics2D(Graphics2D g){
 	this.g = g;
+}
+
+public void showMessage(String message){
+	messagePanel.setMessage(message);
+//	messagePanel.setLocation((getMainFrame().getWidth() - messagePanel.getWidth()) / 2, (getMainFrame().getHeight() - messagePanel.getHeight())/ 2);
+	messagePanel.setVisible(true);
 }
 
 private Client getClient(){
@@ -276,7 +293,7 @@ private Graphics2D getGraphics2D(){
 	return g;
 }
 
-private JFrame getMainFrame(){
+/*private JFrame getMainFrame(){
 	return mainFrame.getFrame();
 }
 

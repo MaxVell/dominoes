@@ -103,13 +103,15 @@ public class Client implements Runnable, Constants {
 		if(game == null)
 			return true;
 		if(game.getGameLine().isFish()){
-			new DialogFrame(getMainFrame().getFrame(), "Fish!");
+			getMainFrame().getDrawClient().showMessage("Fish!");
+		//	new DialogFrame(getMainFrame().getFrame(), "Fish!");
 			return true;
 		}
 		int countGamers = game.getGamers().length;
 		for(int i = 0; i < countGamers; i++){
 			if(game.getGamer(i).getCountStones() == 0){
-				new DialogFrame(getMainFrame().getFrame(), names[i] + " win this round" + "gamer[" + i + "]:" + game.getGamer(i).getCountStones());
+				getMainFrame().getDrawClient().showMessage(names[i] + " win this round!");
+			//	new DialogFrame(getMainFrame().getFrame(), names[i] + " win this round" + "gamer[" + i + "]:" + game.getGamer(i).getCountStones());
 				return true;
 			}
 		}
@@ -206,7 +208,8 @@ public class Client implements Runnable, Constants {
 		//read is win
 		if(getDataInputStream().readBoolean()){
 			int numberWinner = getDataInputStream().readInt();
-			new DialogFrame(getMainFrame().getFrame(), getMainFrame().getDrawClient().getGamerName( ( getNumberGamer() + numberWinner) % names.length) + " winner!");
+			getMainFrame().getDrawClient().showMessage(getMainFrame().getDrawClient().getGamerName( ( getNumberGamer() + numberWinner) % names.length) + " winner!");
+		//	new DialogFrame(getMainFrame().getFrame(), getMainFrame().getDrawClient().getGamerName( ( getNumberGamer() + numberWinner) % names.length) + " winner!");
 			return null;
 		} else {
 		//number gamer

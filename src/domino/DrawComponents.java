@@ -46,7 +46,7 @@ public class DrawComponents {
 		return Integer.valueOf(getProperties().getProperty(param));		
 	}
 	
-	public void drawGame(Graphics2D g, GamerView[] gamers, MarketView market, GameLineView gameLine, StoneView[] stoneRect, String[] names, int[] scores, String message){
+	public void drawGame(Graphics2D g, GamerView[] gamers, MarketView market, GameLineView gameLine, StoneView[] stoneRect, String[] names, int[] scores, String message, MessagePanel messagePanel){
 		setStoneWidth();
 		drawBackground(g);
 		drawGamersPanel(g, gamers);
@@ -55,6 +55,11 @@ public class DrawComponents {
 		drawStoneRect(stoneRect, gameLine.getStones());
 		drawMessage(g, message, gamers.length);
 		drawScore(g, names, scores, gamers.length);
+		drawWinnerMessage(messagePanel);
+	}
+	
+	private void drawWinnerMessage(MessagePanel messagePanel){
+		messagePanel.setLocation((getPanel().getWidth() - messagePanel.getPanelWidth()) / 2, (getPanel().getHeight() - messagePanel.getPanelWidth()) / 2);
 	}
 	
 	private int getRowUp(){
