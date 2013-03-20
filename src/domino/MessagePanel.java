@@ -36,7 +36,7 @@ public class MessagePanel extends JPanel implements MouseListener{
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
-		setSize(4 * getStoneWidth(), 4 * getStoneWidth());
+		setSize(1, 1);
 		width = 0;
 		height = 0;
 		add(clickToHide);
@@ -90,14 +90,8 @@ public class MessagePanel extends JPanel implements MouseListener{
 	private void drawImage(Graphics2D g){
 		FontMetrics fm = g.getFontMetrics();
 		g.drawImage(getImage(), (getWidth() - getImage().getWidth()) / 2, (getHeight() - getImage().getHeight() - 2 * fm.getHeight()) / 2, this);
-//		g.drawImage(getImage(), (getWidth() - getImage().getWidth()) / 2, (getHeight() - getImage().getHeight()) / 2, this);
 	}
 	
-	private int getStoneWidth(){
-		//	return this.dClient.getStoneWidth();
-			return 30;
-		}
-
 	private String getMessage(){
 		return message;
 	}

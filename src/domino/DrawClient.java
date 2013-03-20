@@ -119,17 +119,14 @@ public void addStartGameLineStone(StoneView stoneView){
 	getGameLineView().setGameLine(getGame().getGameLine());
 	if(getGamerView(0).getStones().size() == 0){
 		showMessage(youWinRound);
-	//	new DialogFrame(getMainFrame(), youWinRound);
 	}
 	if(getGame().getGameLine().isFish())
 		showMessage("Fish!");
-	//	new DialogFrame(getMainFrame(), "Fish!");
 }
 
 public void addEndGameLineStone(StoneView stoneView){
 	getGamerView(0).removeStoneView(stoneView);
 	getGameLineView().addEnd(stoneView);
-	
 	try {
 		notifyClient();
 		getClient().sendStepGamer(stoneView.getStone(), false);
@@ -140,11 +137,9 @@ public void addEndGameLineStone(StoneView stoneView){
 	getGame().stepEnd(0, stoneView.getStone());
 	if(getGamerView(0).getStones().size() == 0){
 		showMessage(youWinRound);
-		//new DialogFrame(getMainFrame(), youWinRound);
 	}
 	if(getGame().getGameLine().isFish())
 		showMessage("Fish!");
-		//new DialogFrame(getMainFrame(), "Fish!");
 }
 
 public void putFromMarket(StoneView stoneView){
@@ -165,13 +160,8 @@ public void putFromMarket(StoneView stoneView){
 		setMessage(yourTurn);
 	}
 	if(!getGame().canStep() && getSizeMarket() == 0){
+		notifyClient();
 		setMessage(anotherPlayerTurn);
-		try {
-			getClient().sendCanNotStep();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 	repaint();
 }
@@ -267,7 +257,6 @@ private void setGraphics2D(Graphics2D g){
 
 public void showMessage(String message){
 	messagePanel.setMessage(message);
-//	messagePanel.setLocation((getMainFrame().getWidth() - messagePanel.getWidth()) / 2, (getMainFrame().getHeight() - messagePanel.getHeight())/ 2);
 	messagePanel.setVisible(true);
 }
 
@@ -286,7 +275,7 @@ public void setMessage(String message){
 }
 
 public int getSizeMarket(){
-	return marketView.getStones().size();
+	return /*getGame().getBazar().getCountStones();*/marketView.getStones().size();
 }
 
 private Graphics2D getGraphics2D(){

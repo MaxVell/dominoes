@@ -122,16 +122,18 @@ public class GameLineGoat {
 	}
 	
 	public boolean isFish(){
-		int[] numbers = new int[7];
+	//	int[] numbers = new int[7];
 		for(int i = 0; i < 7; i++)
 			numbers[i] = 0;
 		int countStones = lineGame.size();
 		for(int i = 0; i < countStones; i++){
 			addNumbers(lineGame.get(i));
 		}
-		for(int i = 0; i < 7; i++)
-			if((numbers[i] == 8) && (i == getStartNumber()))
+		for(int i = 0; i < 7; i++){
+			if((numbers[i] == 8) && (i == getStartNumber())){
 				return true;
+			}
+		}
 		return false;
 	}
 	

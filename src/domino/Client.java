@@ -111,7 +111,6 @@ public class Client implements Runnable, Constants {
 		for(int i = 0; i < countGamers; i++){
 			if(game.getGamer(i).getCountStones() == 0){
 				getMainFrame().getDrawClient().showMessage(names[i] + " win this round!");
-			//	new DialogFrame(getMainFrame().getFrame(), names[i] + " win this round" + "gamer[" + i + "]:" + game.getGamer(i).getCountStones());
 				return true;
 			}
 		}
@@ -120,14 +119,11 @@ public class Client implements Runnable, Constants {
 	
 	private void readGameStep() throws IOException{
 			Game game = readGame();
+			getMainFrame().getDrawClient().dispenceStoneView(game);
+			setCanChangeClient(getNumberGamer() == getActiveGamer());
+			setMessage(game);
 			if(!isEndRound(game)){
-				if(!game.canStep() && (getMainFrame().getDrawClient().getSizeMarket() == 0)){
-					setMessage(anotherPlayerTurn + " in readGameStep");
-				} else{
-					getMainFrame().getDrawClient().dispenceStoneView(game);
-					setCanChangeClient(getNumberGamer() == getActiveGamer());
-					setMessage(game);
-					if(getNumberGamer() == getActiveGamer())
+				if((game.canStep() || (getMainFrame().getDrawClient().getSizeMarket() != 0)) && (getNumberGamer() == getActiveGamer())){
 						waitClient();
 				}
 			} else{

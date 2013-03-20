@@ -118,27 +118,42 @@ public class DrawGame extends JPanel implements Constants{
 
 	public void putFromMarket(StoneView stoneView){
 		getGamerView(getGame().getActiveGamer()).addStone(getMarketView().putStoneView(stoneView));
-		if(!getGame().canStep() && this.marketView.getStones().size() == 0){
-			setMessage(anotherPlayerTurn);
-		}
 		if(getGame().canStep()){
 			setMessage(yourTurn);
 		}
-		try {
-			getServer().sendGame(getGame(), 1);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+		if(!getGame().canStep() && getSizeMarket() == 0){
+			while(!getGame().getGameLine().canStep(getGame().getGamer(getGame().getActiveGamer()))){
+				getGame().nextGamer();
+				setCanChange(getGame().getActiveGamer() == 0);
+				setMessage(canNotTurn);
+				sendGame();
+			}
+		} else{
+			try {
+				getServer().sendGame(getGame(), 1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		}
 	
-	public void putFromMarket(Stone stone){
+/*	public void putFromMarket(Stone stone){
 		getGamerView(getGame().getActiveGamer()).addStone(getMarketView().putStoneView(stone));
 	}
-	
+*/	
 	public Stone putFromMarket(int index){
 		StoneView stone = getMarketView().putStone(index);
 		getGamerView(1).addStone(stone);
+		while(!getGame().getGameLine().canStep(getGame().getGamer(getGame().getActiveGamer())) && marketView.getStones().size() == 0){
+			getGame().nextGamer();
+			setCanChange(getGame().getActiveGamer() == 0);
+			if(getGame().getActiveGamer() == 0)
+				setMessage(yourTurn);
+			else
+				setMessage(anotherPlayerTurn);
+		//	sendGame();
+		}
 		return stone.getStone();
 	}
 	
@@ -161,6 +176,13 @@ public class DrawGame extends JPanel implements Constants{
 	}
 
 	private void check(boolean isServer){
+		while(!getGame().getGameLine().canStep(getGame().getGamer(getGame().getActiveGamer())) && getSizeMarket() == 0 && !getGame().getGameLine().isFish()){
+			getGame().nextGamer();
+			setCanChange(getGame().getActiveGamer() == 0);
+			if(getGame().getActiveGamer() != 0)
+				setMessage(canNotTurn);
+			sendGame();
+		}
 		if(isServer){
 			sendGame();
 		}
@@ -172,7 +194,6 @@ public class DrawGame extends JPanel implements Constants{
 	
 	public boolean isEndRound(boolean isServer){
 		if(getGame().getGameLine().isFish()){
-			System.out.println("fish");
 			showMessage("Fish!");
 			return true;
 		}
@@ -181,10 +202,8 @@ public class DrawGame extends JPanel implements Constants{
 		if(getGamerView(i).size() == 0){
 			if(isServer){
 				showMessage(youWinRound);
-				System.out.println("you win");
 			} else{
 				showMessage(anotherPlayerWinRound);
-				System.out.println("another win");
 			}
 			return true;
 		}
@@ -214,7 +233,6 @@ public class DrawGame extends JPanel implements Constants{
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
 		setGraphics2D((Graphics2D)g);
-	//	messagePanel.setVisible(true);
 		dComponents.drawGame(getGraphics2D(), gamerView, getMarketView(), getGameLineView(), stoneRect,getGame().getGamersName(), getGame().getScore(),getMessage(), getMessagePanel());
 	}
 	
@@ -314,12 +332,8 @@ public class DrawGame extends JPanel implements Constants{
 	}
 	
 	public void showMessage(String message){
-		System.out.println("set visible true");
 		messagePanel.setVisible(true);
 		messagePanel.setMessage(message);
-	//	repaint();
-//		messagePanel.setLocation((getMainFrame().getWidth() - messagePanel.getWidth()) / 2, (getMainFrame().getHeight() - messagePanel.getHeight())/ 2);
-		
 	}
 	
 	private MessagePanel getMessagePanel(){

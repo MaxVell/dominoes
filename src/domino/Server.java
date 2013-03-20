@@ -272,10 +272,10 @@ public void dialogClient() throws IOException{
 	}while(!isEndStep);
 	setCanChangeServer(getGame().getActiveGamer() == getNumberServer());
 	setMessage(getDrawGame().getGame());
-	if(!getDrawGame().getGame().canStep() && (getDrawGame().getGame().getBazar().getCountStones() == 0)){
+/*	if(!getDrawGame().getGame().canStep() && (getDrawGame().getGame().getBazar().getCountStones() == 0)){
 		getDrawGame().getGame().nextGamer();
 		sendGame(getDrawGame().getGame(), 1);
-	}
+	}*/
 	getDrawGame().repaint();
 /*	if(getGame().getActiveGamer() == getNumberServer()) 
 		waitServer();*/
@@ -311,8 +311,9 @@ private void setMessage(Game game){
 			getMainFrame().getDrawGame().setMessage(yourTurn);
 		if(!game.canStep() && getSizeMarket() != 0)
 			getMainFrame().getDrawGame().setMessage(takeFromMarket);
-		if(!game.canStep() && getSizeMarket() == 0)
+	/*	if(!game.canStep() && getSizeMarket() == 0){
 			getMainFrame().getDrawGame().setMessage(canNotTurn);
+		}*/
 	}
 	if(game.getActiveGamer() != 0){
 		getMainFrame().getDrawGame().setMessage(anotherPlayerTurn);
@@ -363,7 +364,7 @@ private void sendGameLine(GameLineGoat gameLine) throws IOException{
 }
 
 private void sendBazar(Bazar bazar) throws IOException{
-	getDataOutputStream(0).writeInt(bazar.getCountStones());
+	getDataOutputStream(0).writeInt(getMainFrame().getDrawGame().getSizeMarket());
 }
 
 private void sendScores() throws IOException{
