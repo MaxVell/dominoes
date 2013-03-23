@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DrawClient extends JPanel implements Constants{
@@ -30,6 +32,7 @@ private MarketView marketView;
 private GameLineView gameLineView;
 private Game game;
 private MessagePanel messagePanel;
+private FrontPanel frontPanel;
 
 public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canChange, String[] names){
 	setLayout(null);
@@ -44,6 +47,9 @@ public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canC
 	}catch(IOException e){
 	//	new HelpDialog(this, "Error", "");
 	}
+	frontPanel = new FrontPanel(getFrame().getWidth(), getFrame().getHeight());
+	addFrontPanelResizeListener();
+	add(frontPanel);
 	messagePanel = new MessagePanel();
 	messagePanel.setVisible(false);
 	add(messagePanel);
@@ -51,6 +57,14 @@ public DrawClient(MainFrame mainFrame, String gamerName, Game game, boolean canC
 	createComponents(game, stones);
 	dispence(game);
 //	mainFrame.hideWaitPanel();
+}
+
+private void addFrontPanelResizeListener(){
+	this.addComponentListener(new java.awt.event.ComponentAdapter(){
+		public void componentResized(java.awt.event.ComponentEvent event){
+			getFrontPanel().setSize(getFrame().getWidth(), getFrame().getHeight());
+		}
+	});
 }
 
 private void dispence(Game game){
@@ -64,12 +78,16 @@ private void dispence(Game game){
 		getGamerView(0).getStoneView(j).setStone(game.getGamer(0).getStone(j));
 }
 
+private FrontPanel getFrontPanel(){
+	return frontPanel;
+}
+
 private void createComponents(Game game, ArrayList<StoneView> stones){
 	gameLineView = new GameLineView(game.getGameLine());
 	int countGamers = game.getGamers().length;
 	gamerView = new GamerView[countGamers];
 	for(int i = 0; i < countGamers; i++){
-		gamerView[i] = new GamerView(game.getGamer(i), this);
+		gamerView[i] = new GamerView(game.getGamer(i), this, getFrontPanel());
 	}
 	marketView = new MarketView(game.getBazar(), stones, this);
 	stoneRect = new StoneView[2];
@@ -282,7 +300,7 @@ private Graphics2D getGraphics2D(){
 	return g;
 }
 
-/*private JFrame getMainFrame(){
+private JFrame getFrame(){
 	return mainFrame.getFrame();
 }
 

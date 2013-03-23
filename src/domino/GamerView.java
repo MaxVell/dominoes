@@ -8,22 +8,30 @@ public class GamerView {
 	private DrawGame drawGame;
 	private ArrayList<StoneView> stones;
 	private DrawClient drawClient;
+	private FrontPanel frontPanel;
 	
-	public GamerView(Gamer gamer, DrawGame drawGame){
+	public GamerView(Gamer gamer, DrawGame drawGame, FrontPanel frontPanel){
 		this.gamer = gamer;
 		this.drawGame = drawGame;
+		this.frontPanel = frontPanel;
 		this.stones = new ArrayList<StoneView>();
 	}
 	
-	public GamerView(Gamer gamer, DrawClient drawClient){
+	public GamerView(Gamer gamer, DrawClient drawClient, FrontPanel frontPanel){
 		this.gamer = gamer;
 		this.drawClient = drawClient;
+		this.frontPanel = frontPanel;
 		this.stones = new ArrayList<StoneView>();
 	}
 	
-	public GamerView(DrawClient drawClient){
+	public GamerView(DrawClient drawClient, FrontPanel frontPanel){
 		this.drawClient = drawClient;
+		this.frontPanel = frontPanel;
 		this.stones = new ArrayList<StoneView>();
+	}
+	
+	private FrontPanel getFrontPanel(){
+		return frontPanel;
 	}
 
 	public StoneView putLast(){
@@ -53,9 +61,9 @@ public class GamerView {
 		GamerMouseListener MouseListener;
 		if(getDrawGame() != null){
 			getGamer().addStone(stoneView.getStone());
-			MouseListener = new GamerMouseListener(stoneView, getDrawGame());
+			MouseListener = new GamerMouseListener(stoneView, getDrawGame(), getFrontPanel());
 		} else
-			MouseListener = new GamerMouseListener(stoneView, getDrawClient());
+			MouseListener = new GamerMouseListener(stoneView, getDrawClient(), getFrontPanel());
 		stoneView.addMouseListener(MouseListener);
 		stoneView.addMouseMotionListener(MouseListener);
 		stoneView.setIsOpen(true);

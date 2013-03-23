@@ -13,15 +13,18 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 	private DrawGame dGame;
 	private DrawClient dClient;
 	private boolean canChange;
+	private FrontPanel frontPanel;
 	
-	public GamerMouseListener(StoneView stone, DrawGame dGame){
+	public GamerMouseListener(StoneView stone, DrawGame dGame, FrontPanel frontPanel){
 		this.stone = stone;
 		this.dGame = dGame;
+		this.frontPanel = frontPanel;
 	}
 	
-	public GamerMouseListener(StoneView stone, DrawClient dClient){
+	public GamerMouseListener(StoneView stone, DrawClient dClient, FrontPanel frontPanel){
 		this.stone = stone;
 		this.dClient = dClient;
+		this.frontPanel = frontPanel;
 	}
 
 	private void setStoneRectVisible(boolean visible){
@@ -40,6 +43,10 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 		getStoneRect(1).setIsOpen(true);
 		getStoneRect(1).setColor(Color.GRAY);
 		getStoneRect(1).setVertical();
+	}
+	
+	private FrontPanel getFrontPanel(){
+		return frontPanel;
 	}
 	
 	private DrawGame getDrawGame(){
@@ -92,6 +99,7 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 		setCanChange(true);
 		if(canChange() ){
 			// TODO Auto-generated method stub
+			getFrontPanel().add(getStoneView());
 			getStoneView().setIsPress(true);
 			x = me.getX();
 			y = me.getX();
@@ -108,6 +116,11 @@ public class GamerMouseListener implements MouseListener, MouseMotionListener {
 			getStoneView().setIsPress(false);
 			stepGamer(me);
 			setStoneRectVisible(false);
+			if(getDrawGame() != null){
+				getDrawGame().add(getStoneView());
+			} else{
+				getDrawClient().add(getStoneView());
+			}
 			getStoneView().repaint();
 		}
 		setCanChange(false);

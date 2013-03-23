@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class DrawGame extends JPanel implements Constants{
@@ -26,6 +28,7 @@ public class DrawGame extends JPanel implements Constants{
 	private GameLineView gameLineView;
 	private String message;
 	private MessagePanel messagePanel;
+	private FrontPanel frontPanel;
 
 	public DrawGame(Game game, MainFrame mainFrame, int menuHeight){
 		setLayout(null);
@@ -39,6 +42,9 @@ public class DrawGame extends JPanel implements Constants{
 		}catch(IOException e){
 		//	new HelpDialog(this, "Error", "");
 		}
+		frontPanel = new FrontPanel(getFrame().getWidth(), getFrame().getHeight());
+		addFrontPanelResizeListener();
+		add(frontPanel);
 		messagePanel = new MessagePanel();
 		messagePanel.setVisible(false);
 		add(messagePanel);
@@ -47,6 +53,14 @@ public class DrawGame extends JPanel implements Constants{
 		createComponents(getGame(), stones);
 		dispence();
 		createStoneRect();
+	}
+	
+	private void addFrontPanelResizeListener(){
+		this.addComponentListener(new java.awt.event.ComponentAdapter(){
+			public void componentResized(java.awt.event.ComponentEvent event){
+				getFrontPanel().setSize(getFrame().getWidth(), getFrame().getHeight());
+			}
+		});
 	}
 	
 	private void setNames(){
@@ -76,12 +90,16 @@ public class DrawGame extends JPanel implements Constants{
 		stoneRect[1].setVisible(false);
 	}
 	
+	private FrontPanel getFrontPanel(){
+		return frontPanel;
+	}
+	
 	private void createComponents(Game game, ArrayList<StoneView> stones){
 		gameLineView = new GameLineView(game.getGameLine());
 		int countGamers = game.getGamers().length;
 		gamerView = new GamerView[countGamers];
 		for(int i = 0; i < countGamers; i++){
-			gamerView[i] = new GamerView(game.getGamer(i), this);
+			gamerView[i] = new GamerView(game.getGamer(i), this, getFrontPanel());
 		}
 		marketView = new MarketView(game.getBazar(), stones, this);
 	}
@@ -345,9 +363,9 @@ public class DrawGame extends JPanel implements Constants{
 		repaint();
 	}
 	
-/*	private JFrame getFrame(){
+	private JFrame getFrame(){
 		return mainFrame.getFrame();
-	}*/
+	}
 	
 	private String getMessage(){
 		return message;
