@@ -22,188 +22,174 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-public class ConnectDialog extends Dialog implements ActionListener, WindowListener, Constants{
+public class ConnectDialog extends Dialog implements ActionListener, WindowListener, Constants {
 
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1866491754710339991L;
-	private JFormattedTextField ipTextField;
-	private JLabel text;
-	private JLabel errorMessage;
-	private JButton ok;
-	private MainFrame mainFrame;
-	private InetAddress ipAddres;
-	private JLabel labelServerName;
-	private JTextField textGamerName;
-	private Properties properties;
+    private static final long serialVersionUID = 1866491754710339991L;
+    private JFormattedTextField ipTextField;
+    private JLabel text;
+    private JLabel errorMessage;
+    private JButton ok;
+    private MainFrame mainFrame;
+    private InetAddress ipAddres;
+    private JLabel labelServerName;
+    private JTextField textGamerName;
+    private Properties properties;
 
-	public ConnectDialog(MainFrame mainFrame){
-		super(mainFrame.getFrame(), "", true);
-		properties = new Properties();
-		try{
-			properties.load(new FileInputStream("dominoes.properties"));
-		}catch(IOException e){
-		//	new HelpDialog(this, "Error", "");
-		}
-		setMainFrame(mainFrame);
-		 try {
-			MaskFormatter mf = new MaskFormatter("###.###.###.###");
-			mf.setPlaceholderCharacter('0');
-			ipTextField = new JFormattedTextField(mf);
-			ipTextField.setText("127.000.000.001");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 GridBagLayout gbLayout = new GridBagLayout();
-			setLayout(gbLayout);
-			text = new JLabel("Server ip address:");
-			errorMessage = new JLabel("");
-			ok = new JButton("Ok");
-			labelServerName = new JLabel("Enter your name:");
-			textGamerName = new JTextField("Gamer");
-			gbLayout.setConstraints(labelServerName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(textGamerName, new GridBagConstraints(1, 0, 2, 1, 8, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(text, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(ipTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(errorMessage, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
-			gbLayout.setConstraints(ok, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
-			ok.addActionListener(this);
-			add(labelServerName);
-			add(textGamerName);
-			add(text);
-			add(ipTextField);
-			add(errorMessage);
-			add(ok);
-			
-		 addWindowListener(this);
-		 setMinimumSize(new Dimension(getIntProperty("ConnectFrameMinimumSizeX"), getIntProperty("ConnectFrameMinimumSizeY")));
-		 setSize(getIntProperty("ConnectFrameStartSizeX"), getIntProperty("ConnectFrameStartSizeY"));
-		 setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - getHeight() / 2);
-		 
-		 setVisible(true);
-	}
-	
-	private Properties getProperties(){
-		return properties;
-	}
+    public ConnectDialog(MainFrame mainFrame) {
+        super(mainFrame.getFrame(), "", true);
+        properties = new Properties();
+        try {
+            properties.load(new FileInputStream("dominoes.properties"));
+        } catch (IOException e) {
+            // new HelpDialog(this, "Error", "");
+        }
+        setMainFrame(mainFrame);
+        try {
+            MaskFormatter mf = new MaskFormatter("###.###.###.###");
+            mf.setPlaceholderCharacter('0');
+            ipTextField = new JFormattedTextField(mf);
+            ipTextField.setText("127.000.000.001");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        GridBagLayout gbLayout = new GridBagLayout();
+        setLayout(gbLayout);
+        text = new JLabel("Server ip address:");
+        errorMessage = new JLabel("");
+        ok = new JButton("Ok");
+        labelServerName = new JLabel("Enter your name:");
+        textGamerName = new JTextField("Gamer");
+        gbLayout.setConstraints(labelServerName, new GridBagConstraints(0, 0, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
+        gbLayout.setConstraints(textGamerName, new GridBagConstraints(1, 0, 2, 1, 8, 1, GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL, new Insets(2, 2, 2, 2), 0, 0));
+        gbLayout.setConstraints(text, new GridBagConstraints(0, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.CENTER, new Insets(2, 2, 2, 2), 0, 0));
+        gbLayout.setConstraints(ipTextField, new GridBagConstraints(1, 1, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        gbLayout.setConstraints(errorMessage, new GridBagConstraints(0, 2, 2, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(2, 2, 2, 2), 0, 0));
+        gbLayout.setConstraints(ok, new GridBagConstraints(1, 3, 1, 1, 1, 1, GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(2, 2, 2, 2), 0, 0));
+        ok.addActionListener(this);
+        add(labelServerName);
+        add(textGamerName);
+        add(text);
+        add(ipTextField);
+        add(errorMessage);
+        add(ok);
 
-	private int getIntProperty(String param){
-		return Integer.valueOf(getProperties().getProperty(param));		
-	}
-	
-	private void setIPAddress(InetAddress ipAddress){
-		this.ipAddres = ipAddress;
-	}
-	
-	private InetAddress getIPAddress(){
-		return ipAddres;
-	}
-	
-	private boolean isCorrectName(){
-		if(textGamerName.getText().equals("")){
-		return false;
-		} else{
-			return true;			
-		}
-	}
-	
-	private boolean isCorrectIP(String ipAddress){
-		for(int i = 0; i < 4; i++){
-		int num = Integer.valueOf(ipAddress.substring(0 + 4 * i, 3 + 4 * i));
-		if((num < 0) || (num > 255))
-			return false;
-		}
-		return true;
-	}
-	
-	private void setMainFrame(MainFrame mainFrame){
-		this.mainFrame = mainFrame;
-	}
-	
-	private MainFrame getMainFrame(){
-		return mainFrame;
-	}
-	
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+        addWindowListener(this);
+        setMinimumSize(new Dimension(getIntProperty("ConnectFrameMinimumSizeX"), getIntProperty("ConnectFrameMinimumSizeY")));
+        setSize(getIntProperty("ConnectFrameStartSizeX"), getIntProperty("ConnectFrameStartSizeY"));
+        setLocation(mainFrame.getFrame().getLocation().x + mainFrame.getFrame().getWidth() / 2 - getWidth() / 2, mainFrame.getFrame().getLocation().y + mainFrame.getFrame().getHeight() / 2 - getHeight() / 2);
 
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-	//	this.dispose();
-	}
+        setVisible(true);
+    }
 
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		getMainFrame().setCreateClient(false);
-		dispose();
-	}
+    private Properties getProperties() {
+        return properties;
+    }
 
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    private int getIntProperty(String param) {
+        return Integer.valueOf(getProperties().getProperty(param));
+    }
 
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    private void setIPAddress(InetAddress ipAddress) {
+        this.ipAddres = ipAddress;
+    }
 
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    private InetAddress getIPAddress() {
+        return ipAddres;
+    }
 
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	private String getIP(){
-		return ipTextField.getText();
-	}
+    private boolean isCorrectName() {
+        if (textGamerName.getText().equals("")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-	private String getClientName(){
-		return textGamerName.getText();
-	}
-	
-	private void setErrorMessage(String message){
-		errorMessage.setText(message);
-	}
-	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		if(isCorrectName() && !isCorrectIP(getIP())){
-			setErrorMessage(errorIP);
-		}
-		if(!isCorrectName() && isCorrectIP(getIP())){
-			setErrorMessage(errorEnterName);
-		}
-		if(!isCorrectName() && !isCorrectIP(getIP())){
-			setErrorMessage(errorIP + " and " + errorEnterName);
-		}
-		if(isCorrectIP(getIP()) && isCorrectName()){
-			try {
-				setIPAddress(InetAddress.getByName(getIP()));
-			} catch (UnknownHostException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			getMainFrame().setIPAddress(getIPAddress());
-			getMainFrame().setCreateClient(true);
-			getMainFrame().setClientName(getClientName());
-			dispose();
-		}
-	}
+    private boolean isCorrectIP(String ipAddress) {
+        for (int i = 0; i < 4; i++) {
+            int num = Integer.valueOf(ipAddress.substring(0 + 4 * i, 3 + 4 * i));
+            if ((num < 0) || (num > 255)) return false;
+        }
+        return true;
+    }
+
+    private void setMainFrame(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
+    }
+
+    private MainFrame getMainFrame() {
+        return mainFrame;
+    }
+
+    public void windowActivated(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowClosed(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+        // this.dispose();
+    }
+
+    public void windowClosing(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+        getMainFrame().setCreateClient(false);
+        dispose();
+    }
+
+    public void windowDeactivated(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowDeiconified(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowIconified(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowOpened(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    private String getIP() {
+        return ipTextField.getText();
+    }
+
+    private String getClientName() {
+        return textGamerName.getText();
+    }
+
+    private void setErrorMessage(String message) {
+        errorMessage.setText(message);
+    }
+
+    public void actionPerformed(ActionEvent arg0) {
+        // TODO Auto-generated method stub
+        if (isCorrectName() && !isCorrectIP(getIP())) {
+            setErrorMessage(errorIP);
+        }
+        if (!isCorrectName() && isCorrectIP(getIP())) {
+            setErrorMessage(errorEnterName);
+        }
+        if (!isCorrectName() && !isCorrectIP(getIP())) {
+            setErrorMessage(errorIP + " and " + errorEnterName);
+        }
+        if (isCorrectIP(getIP()) && isCorrectName()) {
+            try {
+                setIPAddress(InetAddress.getByName(getIP()));
+            } catch (UnknownHostException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            getMainFrame().setIPAddress(getIPAddress());
+            getMainFrame().setCreateClient(true);
+            getMainFrame().setClientName(getClientName());
+            dispose();
+        }
+    }
 }

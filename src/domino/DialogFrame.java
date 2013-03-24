@@ -15,91 +15,76 @@ import java.util.Properties;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+public class DialogFrame extends Dialog implements ActionListener, WindowListener {
 
-
-public class DialogFrame extends Dialog implements ActionListener, WindowListener{
-
-	/**
+    /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private JButton buttonOk;
-	private Properties properties;
+    private static final long serialVersionUID = 1L;
+    private JButton buttonOk;
+    private Properties properties;
 
-	DialogFrame(JFrame mainFrame, String text){
-		super(mainFrame, text, true);
-		properties = new Properties();
-		try{
-			properties.load(new FileInputStream("dominoes.properties"));
-		}catch(IOException e){
-			//new HelpDialog(mainFrame, "Error", errorOpenConfig);
-		}
-		setLayout(new GridBagLayout());
-		setMinimumSize(new Dimension(getIntProperty("DialogFrameMinimumSizeX"), getIntProperty("DialogFrameMinimumSizeY")));
-		setSize(getIntProperty("DialogFrameStartSizeX"),getIntProperty("DialogFrameStartSizeY"));
-		setLocation(mainFrame.getLocation().x + mainFrame.getWidth() / 2 - getWidth() / 2, mainFrame.getLocation().y + mainFrame.getHeight() / 2 - getHeight() / 2);
-		add(new Label(text));
-		add(buttonOk = new JButton("Ok"));
-		buttonOk.addActionListener(this);
-		addWindowListener(this);
-		setVisible(true);
-	
-	}
-	
-	private Properties getProperties(){
-		return properties;
-	}
+    DialogFrame(JFrame mainFrame, String text) {
+        super(mainFrame, text, true);
+        properties = new Properties();
+        try {
+            properties.load(new FileInputStream("dominoes.properties"));
+        } catch (IOException e) {
+            // new HelpDialog(mainFrame, "Error", errorOpenConfig);
+        }
+        setLayout(new GridBagLayout());
+        setMinimumSize(new Dimension(getIntProperty("DialogFrameMinimumSizeX"), getIntProperty("DialogFrameMinimumSizeY")));
+        setSize(getIntProperty("DialogFrameStartSizeX"), getIntProperty("DialogFrameStartSizeY"));
+        setLocation(mainFrame.getLocation().x + mainFrame.getWidth() / 2 - getWidth() / 2, mainFrame.getLocation().y + mainFrame.getHeight() / 2 - getHeight() / 2);
+        add(new Label(text));
+        add(buttonOk = new JButton("Ok"));
+        buttonOk.addActionListener(this);
+        addWindowListener(this);
+        setVisible(true);
 
-	private int getIntProperty(String param){
-		return Integer.valueOf(getProperties().getProperty(param));		
-	}
-	
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		dispose();
-	}
+    private Properties getProperties() {
+        return properties;
+    }
 
-	@Override
-	public void windowClosing(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		dispose();
-	}
+    private int getIntProperty(String param) {
+        return Integer.valueOf(getProperties().getProperty(param));
+    }
 
-	@Override
-	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void windowActivated(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void windowClosed(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+        dispose();
+    }
 
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void windowClosing(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+        dispose();
+    }
 
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void windowDeactivated(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		dispose();
-	}
+    public void windowDeiconified(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowIconified(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void windowOpened(WindowEvent arg0) {
+        // TODO Auto-generated method stub
+    }
+
+    public void actionPerformed(ActionEvent arg0) {
+        // TODO Auto-generated method stub
+        dispose();
+    }
 
 }
